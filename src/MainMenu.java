@@ -69,7 +69,7 @@ public class MainMenu extends JFrame {
             add(secondPanel, BorderLayout.CENTER);
             pack();
 
-                MainStartButtonActionListener actionListener = new MainStartButtonActionListener(this);
+                MainMenuStartButtonActionListener actionListener = new MainMenuStartButtonActionListener(this);
                 startButton = new JButton("Ξεκίνα / Start");
                 startButton.setEnabled(false);
                 startButton.addActionListener(actionListener);

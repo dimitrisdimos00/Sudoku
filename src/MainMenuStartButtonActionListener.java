@@ -1,11 +1,11 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class MainStartButtonActionListener implements ActionListener {
+public class MainMenuStartButtonActionListener implements ActionListener {
 
     private MainMenu aMainMenu;
 
-    MainStartButtonActionListener(MainMenu aMainMenu) {
+    MainMenuStartButtonActionListener(MainMenu aMainMenu) {
         this.aMainMenu = aMainMenu;
     }
 
@@ -15,8 +15,10 @@ public class MainStartButtonActionListener implements ActionListener {
         aMainMenu.setVisible(false);
 
         if (aMainMenu.getGreekRadioButton().isSelected()) {
+            //new GreekMenu();
             new GreekMenu();
         } else if (aMainMenu.getEnglishRadioButton().isSelected()) {
+            //new EnglishMenu();
             new EnglishMenu();
         }
     }
