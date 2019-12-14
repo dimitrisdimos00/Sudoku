@@ -39,7 +39,7 @@ abstract class SudokuFramePROX extends JFrame{
         }
 
         CheckButton = new JButton("Check");
-        //CheckButton.addActionListener();
+        // heckButton.addActionListener();
 
         add(firstPanel);
         add(CheckButton, BorderLayout.PAGE_END);
