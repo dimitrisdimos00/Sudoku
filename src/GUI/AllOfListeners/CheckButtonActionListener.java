@@ -33,13 +33,14 @@ public class CheckButtonActionListener implements ActionListener {
                         if (!(aSudokuFrame.getTheField()[i][j].getText().equals("")))
                             aSudokuFrame.getTheField()[i][j].setBackground(Color.red);
                     }
+                    found = false;
                 }
             }
         } else {
             for (int i=0; i<aSudokuFrame.getNumOfRows(); i++) {
                 for (int j=0; j<aSudokuFrame.getNumOfColumns(); j++) {
-                    for (int k=0; k<aSudokuFrame.getNumbers().length; k++) {
-                        if (aSudokuFrame.getTheField()[i][j].getText().equals(Integer.toString(aSudokuFrame.getNumbers()[k]))) {
+                    for (int k=0; k<aSudokuFrame.getLetters().length; k++) {
+                        if (aSudokuFrame.getTheField()[i][j].getText().equals(Character.toString(aSudokuFrame.getLetters()[k]))) {
                             found = true;
                             aSudokuFrame.getTheField()[i][j].setBackground(Color.green);
                             break;
@@ -49,9 +50,9 @@ public class CheckButtonActionListener implements ActionListener {
                         if (!(aSudokuFrame.getTheField()[i][j].getText().equals("")))
                             aSudokuFrame.getTheField()[i][j].setBackground(Color.red);
                     }
+                    found = false;
                 }
             }
         }
-
     }
 }
