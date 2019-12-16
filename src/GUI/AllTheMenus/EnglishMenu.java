@@ -1,6 +1,10 @@
-public class EnglishMenu extends SecondMenu{
+package GUI.AllTheMenus;
 
-    EnglishMenu() {
+import GUI.AllOfListeners.*;
+
+public class EnglishMenu extends SecondMenu {
+
+    public EnglishMenu() {
         this.getStrings()[0] = "Welcome!";
         this.getStrings()[1] = "Original Sudoku";
         this.getStrings()[2] = "Killer Sudoku";

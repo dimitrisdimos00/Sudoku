@@ -1,10 +1,14 @@
+package GUI.AllOfListeners;
+
+import GUI.AllTheMenus.MainMenu;
+
 import javax.swing.event.DocumentEvent;
 
 public class DocumentListener implements javax.swing.event.DocumentListener {
 
     private MainMenu aMainMenu;
 
-    DocumentListener(MainMenu aMainMenu) {
+    public DocumentListener(MainMenu aMainMenu) {
         this.aMainMenu = aMainMenu;
     }
 

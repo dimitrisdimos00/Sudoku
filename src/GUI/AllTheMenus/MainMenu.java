@@ -1,5 +1,10 @@
+package GUI.AllTheMenus;
+
+import GUI.AllOfListeners.*;
+
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
+import javax.swing.event.DocumentListener;
 import java.awt.*;
 
 public class MainMenu extends JFrame {
@@ -32,7 +37,7 @@ public class MainMenu extends JFrame {
         this.startButton = startButton;
     }
 
-    MainMenu() {
+    public MainMenu() {
         MenuStart();
     }
 
@@ -43,7 +48,7 @@ public class MainMenu extends JFrame {
 
         firstPanel = new JPanel(new GridLayout(1,2));
         UserNameLabel = new JLabel("(Υποχρεωτικό) Ψευδώνυμο / (Required) UserName: ");
-        DocumentListener listener = new DocumentListener(this);
+        DocumentListener listener = new GUI.AllOfListeners.DocumentListener(this);
         UserNameTextField = new JTextField("");
         UserNameTextField.getDocument().addDocumentListener(listener);
         firstPanel.add(UserNameLabel);
@@ -79,8 +84,4 @@ public class MainMenu extends JFrame {
         setLocationRelativeTo(null);
         setVisible(true);
     }
-
-    /*public static void main(String[] args) {
-        new MainMenu();
-    }*/
 }

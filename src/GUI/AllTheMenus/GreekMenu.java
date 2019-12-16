@@ -1,6 +1,8 @@
-public class GreekMenu extends SecondMenu{
+package GUI.AllTheMenus;
 
-    GreekMenu() {
+public class GreekMenu extends SecondMenu {
+
+    public GreekMenu() {
         this.getStrings()[0] = "Καλωσόρισες!";
         this.getStrings()[1] = "Original Sudoku";
         this.getStrings()[2] = "Killer Sudoku";

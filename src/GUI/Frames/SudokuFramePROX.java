@@ -1,7 +1,12 @@
+package GUI.Frames;
+
+import GUI.AllTheMenus.JTextFieldLimit;
+import GUI.AllTheMenus.SecondMenu;
+
 import javax.swing.*;
 import java.awt.*;
 
-abstract class SudokuFramePROX extends JFrame{
+public class SudokuFramePROX extends JFrame{
 
     private String nameOfGame;
     private int numOfRows;
@@ -13,23 +18,31 @@ abstract class SudokuFramePROX extends JFrame{
 
     private JButton CheckButton;
 
-    SudokuFramePROX(String nameOfGame, int numOfRows, int numOfColumns, String ButtonName) {
-        this.nameOfGame = nameOfGame;
+    public SudokuFramePROX(SecondMenu aSecondMenu, int numOfRows, int numOfColumns, String ButtonName) {
+
+        if (aSecondMenu.getEpilogiOriginalSudoku().isSelected())
+            this.nameOfGame = "Original Sudoku";
+        else if (aSecondMenu.getEpilogiKillerSudoku().isSelected())
+            this.nameOfGame = "Killer Sudoku";
+        else if (aSecondMenu.getEpilogiDuiDoku().isSelected())
+            this.nameOfGame = "Duidoku";
+
         this.numOfRows = numOfRows;
         this.numOfColumns = numOfColumns;
         this.ButtonName = ButtonName;
-        makeFrame();
+
+        this.makeFrame();
     }
 
     private void makeFrame() {
-        setTitle("Original Sudoku");
+        setTitle(nameOfGame);
         setResizable(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        firstPanel = new JPanel(new GridLayout(9,9));
-        theField = new JTextField[9][9];
-        for (int i=0; i<9 ;i++) {
-            for (int j=0;j<9;j++) {
+        firstPanel = new JPanel(new GridLayout(numOfRows,numOfColumns));
+        theField = new JTextField[numOfRows][numOfColumns];
+        for (int i=0; i<numOfRows ;i++) {
+            for (int j=0; j<numOfColumns ;j++) {
                 theField[i][j] = new JTextField("");
                 theField[i][j].setHorizontalAlignment(JTextField.CENTER);
                 theField[i][j].setFont(new Font("Verdana", Font.BOLD,20));
@@ -38,7 +51,7 @@ abstract class SudokuFramePROX extends JFrame{
             }
         }
 
-        CheckButton = new JButton("Check");
+        CheckButton = new JButton(ButtonName);
         // heckButton.addActionListener();
 
         add(firstPanel);

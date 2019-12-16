@@ -1,5 +1,8 @@
+package GUI.Frames;
+
+import GUI.AllTheMenus.JTextFieldLimit;
+
 import javax.swing.*;
-import javax.swing.text.PlainDocument;
 import java.awt.*;
 
 public class Original_SudokuFrame extends JFrame {
@@ -9,7 +12,7 @@ public class Original_SudokuFrame extends JFrame {
 
     private JButton CheckButton;
 
-    Original_SudokuFrame() {
+    public Original_SudokuFrame() {
         makeFrame();
     }
 

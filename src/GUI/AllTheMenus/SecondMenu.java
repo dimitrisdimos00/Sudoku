@@ -1,9 +1,12 @@
+package GUI.AllTheMenus;
+
+import GUI.AllOfListeners.*;
+
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
-import java.awt.event.ActionListener;
 
-abstract class SecondMenu extends JFrame{
+public class SecondMenu extends JFrame{
 
     private String[] strings;
 
@@ -116,9 +119,5 @@ abstract class SecondMenu extends JFrame{
         setLocationRelativeTo(null);
         setVisible(true);
     }
-
-    /*public static void main(String[] args) {
-        new GreekMenu();
-    }*/
 
 }

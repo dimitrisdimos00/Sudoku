@@ -1,3 +1,9 @@
+package GUI.AllOfListeners;
+
+import GUI.AllTheMenus.EnglishMenu;
+import GUI.AllTheMenus.GreekMenu;
+import GUI.AllTheMenus.MainMenu;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -5,7 +11,7 @@ public class MainMenuStartButtonActionListener implements ActionListener {
 
     private MainMenu aMainMenu;
 
-    MainMenuStartButtonActionListener(MainMenu aMainMenu) {
+    public MainMenuStartButtonActionListener(MainMenu aMainMenu) {
         this.aMainMenu = aMainMenu;
     }
 
