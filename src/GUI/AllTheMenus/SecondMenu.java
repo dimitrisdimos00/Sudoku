@@ -27,6 +27,8 @@ public class SecondMenu extends JFrame{
 
     private JButton startButton;
 
+    //--------------------------------------------------------------------------------------------------
+
     public JRadioButton getEpilogiOriginalSudoku() {
         return EpilogiOriginalSudoku;
     }
@@ -57,6 +59,8 @@ public class SecondMenu extends JFrame{
     public void setFromGreekMenu(boolean fromGreekMenu) {
         this.fromGreekMenu = fromGreekMenu;
     }
+
+    //--------------------------------------------------------------------------------------------------
 
     SecondMenu() {
         fromGreekMenu = this instanceof GreekMenu? true : false;

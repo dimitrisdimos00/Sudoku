@@ -20,6 +20,8 @@ public class MainMenu extends JFrame {
 
     private JButton startButton;
 
+    //--------------------------------------------------------------------------------------------------
+
     public JRadioButton getGreekRadioButton() {
         return greekRadioButton;
     }
@@ -36,6 +38,8 @@ public class MainMenu extends JFrame {
     public void setStartButton(JButton startButton) {
         this.startButton = startButton;
     }
+
+    //--------------------------------------------------------------------------------------------------
 
     public MainMenu() {
         MenuStart();
