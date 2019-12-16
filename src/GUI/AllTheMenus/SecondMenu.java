@@ -8,16 +8,8 @@ import java.awt.*;
 
 public class SecondMenu extends JFrame{
 
+    private boolean fromGreekMenu;
     private String[] strings;
-
-    public String[] getStrings() {
-        return strings;
-    }
-    public void setStrings(String[] strings) {
-        this.strings = strings;
-    }
-
-    //-------------------------------------------------
 
     private JPanel firstPanel;
     private ButtonGroup EpilogesGiaSudoku;
@@ -52,7 +44,22 @@ public class SecondMenu extends JFrame{
         return EpilogiGrammaton;
     }
 
+    public String[] getStrings() {
+        return strings;
+    }
+    public void setStrings(String[] strings) {
+        this.strings = strings;
+    }
+
+    public boolean isFromGreekMenu() {
+        return fromGreekMenu;
+    }
+    public void setFromGreekMenu(boolean fromGreekMenu) {
+        this.fromGreekMenu = fromGreekMenu;
+    }
+
     SecondMenu() {
+        fromGreekMenu = this instanceof GreekMenu? true : false;
         strings = new String[11];
     }
 

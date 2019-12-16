@@ -1,8 +1,7 @@
 package GUI.AllOfListeners;
 
 import GUI.AllTheMenus.*;
-import GUI.Frames.Original_SudokuFrame;
-import GUI.Frames.SudokuFramePROX;
+import GUI.Frames.SudokuFrame;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -22,13 +21,13 @@ public class SecondMenuStartButtonActionListener implements ActionListener {
 
         if (aSecondMenu.getEpilogiOriginalSudoku().isSelected()) {
             //new Original_SudokuFrame();
-            new SudokuFramePROX(aSecondMenu, 9, 9, "El");
+            new SudokuFrame(aSecondMenu, 9, 9);
         }
         if (aSecondMenu.getEpilogiKillerSudoku().isSelected()) {
-            new SudokuFramePROX(aSecondMenu, 4, 4, "El");
+            new SudokuFrame(aSecondMenu, 4, 4);
         }
         if (aSecondMenu.getEpilogiDuiDoku().isSelected()) {
-            new SudokuFramePROX(aSecondMenu, 9, 9, "El");
+            new SudokuFrame(aSecondMenu, 9, 9);
         }
 
     }

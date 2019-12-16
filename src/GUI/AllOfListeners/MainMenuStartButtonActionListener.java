@@ -21,10 +21,8 @@ public class MainMenuStartButtonActionListener implements ActionListener {
         aMainMenu.setVisible(false);
 
         if (aMainMenu.getGreekRadioButton().isSelected()) {
-            //new GreekMenu();
             new GreekMenu();
         } else if (aMainMenu.getEnglishRadioButton().isSelected()) {
-            //new EnglishMenu();
             new EnglishMenu();
         }
     }

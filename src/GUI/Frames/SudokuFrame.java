@@ -6,7 +6,7 @@ import GUI.AllTheMenus.SecondMenu;
 import javax.swing.*;
 import java.awt.*;
 
-public class SudokuFramePROX extends JFrame{
+public class SudokuFrame extends JFrame{
 
     private String nameOfGame;
     private int numOfRows;
@@ -18,7 +18,7 @@ public class SudokuFramePROX extends JFrame{
 
     private JButton CheckButton;
 
-    public SudokuFramePROX(SecondMenu aSecondMenu, int numOfRows, int numOfColumns, String ButtonName) {
+    public SudokuFrame(SecondMenu aSecondMenu, int numOfRows, int numOfColumns) {
 
         if (aSecondMenu.getEpilogiOriginalSudoku().isSelected())
             this.nameOfGame = "Original Sudoku";
@@ -26,6 +26,8 @@ public class SudokuFramePROX extends JFrame{
             this.nameOfGame = "Killer Sudoku";
         else if (aSecondMenu.getEpilogiDuiDoku().isSelected())
             this.nameOfGame = "Duidoku";
+
+        String ButtonName = aSecondMenu.isFromGreekMenu() ? "Έλεγχος" : "Check";
 
         this.numOfRows = numOfRows;
         this.numOfColumns = numOfColumns;
@@ -52,7 +54,6 @@ public class SudokuFramePROX extends JFrame{
         }
 
         CheckButton = new JButton(ButtonName);
-        // heckButton.addActionListener();
 
         add(firstPanel);
         add(CheckButton, BorderLayout.PAGE_END);
