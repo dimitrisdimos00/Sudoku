@@ -61,19 +61,17 @@ public class OriginalSudokuFrame extends JFrame{
 
     public OriginalSudokuFrame(SecondMenu aSecondMenu, int numOfRows, int numOfColumns) {
 
-        if (!aSecondMenu.getEpilogiKillerSudoku().isSelected() && aSecondMenu.getEpilogiArithmon().isSelected())
+        if (!aSecondMenu.getEpilogiDuiDoku().isSelected() && aSecondMenu.getEpilogiArithmon().isSelected())
             numbers = new int[]{1, 2, 3, 4, 5, 6, 7, 8 ,9};
-        if (!aSecondMenu.getEpilogiKillerSudoku().isSelected() && aSecondMenu.getEpilogiGrammaton().isSelected())
+        if (!aSecondMenu.getEpilogiDuiDoku().isSelected() && aSecondMenu.getEpilogiGrammaton().isSelected())
             letters = new char[]{'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'};
-        if (aSecondMenu.getEpilogiKillerSudoku().isSelected() && aSecondMenu.getEpilogiArithmon().isSelected())
+        if (aSecondMenu.getEpilogiDuiDoku().isSelected() && aSecondMenu.getEpilogiArithmon().isSelected())
             numbers = new int[]{1, 2, 3, 4};
-        if (aSecondMenu.getEpilogiKillerSudoku().isSelected() && aSecondMenu.getEpilogiGrammaton().isSelected())
+        if (aSecondMenu.getEpilogiDuiDoku().isSelected() && aSecondMenu.getEpilogiGrammaton().isSelected())
             letters = new char[]{'A', 'B', 'C', 'D'};
 
         if (aSecondMenu.getEpilogiOriginalSudoku().isSelected())
             this.nameOfGame = "Original Sudoku";
-        else if (aSecondMenu.getEpilogiKillerSudoku().isSelected())
-            this.nameOfGame = "Killer Sudoku";
         else if (aSecondMenu.getEpilogiDuiDoku().isSelected())
             this.nameOfGame = "Duidoku";
 
@@ -115,5 +113,4 @@ public class OriginalSudokuFrame extends JFrame{
         setLocationRelativeTo(null);
         setVisible(true);
     }
-
 }
