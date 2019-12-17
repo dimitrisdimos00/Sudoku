@@ -7,7 +7,7 @@ import GUI.AllTheMenus.SecondMenu;
 import javax.swing.*;
 import java.awt.*;
 
-public class SudokuFrame extends JFrame{
+public class OriginalSudokuFrame extends JFrame{
 
     private int[] numbers = null;
     private char[] letters = null;
@@ -59,7 +59,7 @@ public class SudokuFrame extends JFrame{
 
     //--------------------------------------------------------------------------------------------------
 
-    public SudokuFrame(SecondMenu aSecondMenu, int numOfRows, int numOfColumns) {
+    public OriginalSudokuFrame(SecondMenu aSecondMenu, int numOfRows, int numOfColumns) {
 
         if (!aSecondMenu.getEpilogiKillerSudoku().isSelected() && aSecondMenu.getEpilogiArithmon().isSelected())
             numbers = new int[]{1, 2, 3, 4, 5, 6, 7, 8 ,9};

@@ -1,58 +1,62 @@
 package GUI.AllOfListeners;
 
-import GUI.SudokuFrame.SudokuFrame;
+import GUI.SudokuFrame.OriginalSudokuFrame;
 
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class CheckButtonActionListener implements ActionListener {
 
-    private SudokuFrame aSudokuFrame;
+    private OriginalSudokuFrame anOriginalSudokuFrame;
 
-    public CheckButtonActionListener(SudokuFrame aSudokuFrame) {
-        this.aSudokuFrame = aSudokuFrame;
+    public CheckButtonActionListener(OriginalSudokuFrame anOriginalSudokuFrame) {
+        this.anOriginalSudokuFrame = anOriginalSudokuFrame;
     }
 
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
+        //CheckIfThereAreMultipleInTheIntireMap();
+
+    }
+    /*private void CheckIfThereAreMultipleInTheIntireMap() {
 
         boolean found = false;
 
-        if (aSudokuFrame.getNumbers()!=null) {
-            for (int i=0; i<aSudokuFrame.getNumOfRows(); i++) {
-                for (int j=0; j<aSudokuFrame.getNumOfColumns(); j++) {
-                    for (int k=0; k<aSudokuFrame.getNumbers().length; k++) {
-                        if (aSudokuFrame.getTheField()[i][j].getText().equals(String.valueOf(aSudokuFrame.getNumbers()[k]))) {
+        if (anOriginalSudokuFrame.getNumbers()!=null) {
+            for (int i = 0; i< anOriginalSudokuFrame.getNumOfRows(); i++) {
+                for (int j = 0; j< anOriginalSudokuFrame.getNumOfColumns(); j++) {
+                    for (int k = 0; k< anOriginalSudokuFrame.getNumbers().length; k++) {
+                        if (anOriginalSudokuFrame.getTheField()[i][j].getText().equals(String.valueOf(anOriginalSudokuFrame.getNumbers()[k]))) {
                             found = true;
-                            aSudokuFrame.getTheField()[i][j].setBackground(Color.green);
+                            anOriginalSudokuFrame.getTheField()[i][j].setBackground(Color.green);
                             break;
                         }
                     }
                     if (!found) {
-                        if (!(aSudokuFrame.getTheField()[i][j].getText().equals("")))
-                            aSudokuFrame.getTheField()[i][j].setBackground(Color.red);
+                        if (!(anOriginalSudokuFrame.getTheField()[i][j].getText().equals("")))
+                            anOriginalSudokuFrame.getTheField()[i][j].setBackground(Color.red);
                     }
                     found = false;
                 }
             }
         } else {
-            for (int i=0; i<aSudokuFrame.getNumOfRows(); i++) {
-                for (int j=0; j<aSudokuFrame.getNumOfColumns(); j++) {
-                    for (int k=0; k<aSudokuFrame.getLetters().length; k++) {
-                        if (aSudokuFrame.getTheField()[i][j].getText().equals(Character.toString(aSudokuFrame.getLetters()[k]))) {
+            for (int i = 0; i< anOriginalSudokuFrame.getNumOfRows(); i++) {
+                for (int j = 0; j< anOriginalSudokuFrame.getNumOfColumns(); j++) {
+                    for (int k = 0; k< anOriginalSudokuFrame.getLetters().length; k++) {
+                        if (anOriginalSudokuFrame.getTheField()[i][j].getText().equals(Character.toString(anOriginalSudokuFrame.getLetters()[k]))) {
                             found = true;
-                            aSudokuFrame.getTheField()[i][j].setBackground(Color.green);
+                            anOriginalSudokuFrame.getTheField()[i][j].setBackground(Color.green);
                             break;
                         }
                     }
                     if (!found) {
-                        if (!(aSudokuFrame.getTheField()[i][j].getText().equals("")))
-                            aSudokuFrame.getTheField()[i][j].setBackground(Color.red);
+                        if (!(anOriginalSudokuFrame.getTheField()[i][j].getText().equals("")))
+                            anOriginalSudokuFrame.getTheField()[i][j].setBackground(Color.red);
                     }
                     found = false;
                 }
             }
         }
-    }
+
+    }*/
 }
