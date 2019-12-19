@@ -1,3 +1,5 @@
+package LOGIC;
+
 import javax.swing.*;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -9,11 +11,24 @@ import java.util.Scanner;
 public class Logic {
     private int[][] A;
     private int n;
+    private int sds;
+    File puzzlesFile;
 
-    public Logic(int n){ // n oxi 0
+    public Logic(int n, int sudoku_selection){ // n = 4 or n = 9, sudoku_selection = {1(classic), 2(killer), 3(duidoku)}
         this.n = n;
+        sds = sudoku_selection;
         A = new int[n][n];
         arrayInitialization();
+
+        if (sds == 1){
+            File puzzlesFile = new File("classicpuzzles");
+        }
+        else if(sds == 2){
+            File puzzlesFile = new File("killerpuzzles");
+        }
+        else{
+            File puzzlesFile = new File("duidokupuzzles");
+        }
     }
 
     private void arrayInitialization(){
@@ -32,10 +47,7 @@ public class Logic {
     }
 
     private Integer[] readPuzzleFromFile(){
-
         ArrayList<String> StringElements= new ArrayList<>();
-
-        File puzzlesFile = new File("puzzles");
 
         Random rand = new Random();
 
@@ -61,7 +73,7 @@ public class Logic {
             return null;
         }
 
-    }
+    } // ok
 
     private boolean elementInRow(int row, int el){ // 0=< row_start, row_end <=n  0=< col_start, col_end <=n
         for (int j = 0; j <= n - 1; j++) {
@@ -70,7 +82,7 @@ public class Logic {
             }
         }
         return false;
-    }
+    } //ok
 
     private boolean elementInColumn(int col, int el){ // 0=< row_start, row_end <=n  0=< col_start, col_end <=n
         for (int i = 0; i <= n - 1; i++) {
@@ -79,7 +91,7 @@ public class Logic {
             }
         }
         return false;
-    }
+    } //ok
 
     private boolean findAndCheckBox(int row, int col, int el){
         if(row <= 2){
@@ -170,7 +182,7 @@ public class Logic {
         }
     }
 
-    public void showArray(){
+    public void showArray(){ //ok
         for (int i = 0; i <= n - 1;i++){
             for (int j = 0; j <= n - 1;j++){
                 System.out.print(A[i][j] + " ");
