@@ -86,7 +86,7 @@ public class OriginalSudokuFrame extends JFrame{
 
     private void makeFrame() {
         setTitle(nameOfGame);
-        setResizable(true);
+        setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         firstPanel = new JPanel(new GridLayout(numOfRows,numOfColumns));

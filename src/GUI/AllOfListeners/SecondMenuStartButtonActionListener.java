@@ -24,7 +24,7 @@ public class SecondMenuStartButtonActionListener implements ActionListener {
             new OriginalSudokuFrame(aSecondMenu, 9, 9);
         }
         if (aSecondMenu.getEpilogiKillerSudoku().isSelected()) {
-            new KillerSudokuFrame();
+            //new KillerSudokuFrame(aSecondMenu, 9, 9);
         }
         if (aSecondMenu.getEpilogiDuiDoku().isSelected()) {
             new OriginalSudokuFrame(aSecondMenu, 4, 4);
