@@ -15,11 +15,12 @@ public class KillerSudokuFrame extends JFrame {
         setResizable(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        theTable = new JTable(numOfRows,numOfColumns);
+        theTable = new JTable(numOfRows, numOfColumns);
+        theTable.setRowHeight(55);
 
         add(theTable);
 
-        setSize(500,500);
+        setSize(535,535);
         setLocationRelativeTo(null);
         setVisible(true);
     }
