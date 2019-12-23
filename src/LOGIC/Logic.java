@@ -11,31 +11,37 @@ import java.util.Scanner;
 public class Logic {
     private int[][] A;
     private int n;
-    private int sds;
-    File puzzlesFile;
+    private File puzzlesFile;
 
-    public Logic(int n, int sudoku_selection){ // n = 4 or n = 9, sudoku_selection = {1(classic), 2(killer), 3(duidoku)}
-        this.n = n;
-        sds = sudoku_selection;
-        A = new int[n][n];
-        arrayInitialization();
-
-        if (sds == 1){
-            File puzzlesFile = new File("classicpuzzles");
+    public Logic(int sudoku_selection){//sudoku_selection = {1(classic), 2(killer), 3(duidoku)}
+        File file;
+        if (sudoku_selection == 1){
+            file = new File("classicpuzzles");
+            n = 9;
         }
-        else if(sds == 2){
-            File puzzlesFile = new File("killerpuzzles");
+        else if(sudoku_selection == 2){
+            file = new File("killerpuzzles");
+            n = 9;
         }
         else{
-            File puzzlesFile = new File("duidokupuzzles");
+            file = new File("duidokupuzzles");
+            n = 4;
         }
+        puzzlesFile = file;
+        A = new int[n][n];
+        arrayInitialization();
     }
 
     private void arrayInitialization(){
+        Integer[] intElements = GetRandomPuzzle();
 
-        Integer[] intElements = readPuzzleFromFile();
+        if (intElements == null) {
+            System.out.println("intElements = null!");
+            return;
+        }
         int counter = 0;
-        int sizeOfArray = intElements.length;
+        int sizeOfArray = 0;
+        sizeOfArray = intElements.length;
         for(int i = 0; i <= n - 1; i ++){
             for(int j = 0; j <= n - 1; j++){
                 if (counter < sizeOfArray) {
@@ -46,34 +52,48 @@ public class Logic {
         }
     }
 
-    private Integer[] readPuzzleFromFile(){
+    private ArrayList<String> readPuzzlesFromFile(){
         ArrayList<String> StringElements= new ArrayList<>();
-
-        Random rand = new Random();
 
         try{
             Scanner scanner = new Scanner(puzzlesFile);
+            System.out.println(scanner.next());
             while (scanner.hasNext()) {
                 StringElements.add(scanner.next());
             }
-
-            int size = StringElements.size();
-            int randomInt = rand.nextInt(size);
-            char[] characterArray = StringElements.get(randomInt).toCharArray();
-
-            size = characterArray.length;
-            Integer[] integerArray = new Integer[size];
-            for (int i = 0; i < size; i++) {
-                integerArray[i] = Character.getNumericValue(characterArray[i]);
-            }
-            return integerArray;
+            return StringElements;
         }
         catch (FileNotFoundException e){
             System.out.println( "Δεν βρέθηκε ο φάκελος!");
             return null;
         }
+        catch (Exception ex){
+            System.out.println(ex);
+            return null;
+        }
+    }
 
-    } // ok
+    private Integer[] GetRandomPuzzle(){
+        ArrayList<String> StringElements= readPuzzlesFromFile();
+        Random rand = new Random();
+
+        int size = 0;
+        if (StringElements == null) {
+            System.out.println("StringELements == null!");
+            return null;
+        }
+        size = StringElements.size();
+        int randomInt = rand.nextInt(size);
+        char[] characterArray = StringElements.get(randomInt).toCharArray();
+
+        size = characterArray.length;
+        Integer[] integerArray = new Integer[size];
+        for (int i = 0; i < size; i++) {
+            integerArray[i] = Character.getNumericValue(characterArray[i]);
+        }
+        return integerArray;
+
+    }
 
     private boolean elementInRow(int row, int el){ // 0=< row_start, row_end <=n  0=< col_start, col_end <=n
         for (int j = 0; j <= n - 1; j++) {
@@ -94,42 +114,21 @@ public class Logic {
     } //ok
 
     private boolean findAndCheckBox(int row, int col, int el){
-        if(row <= 2){
-            if(col <= 2){
-                return elementInBox(0,2,0,2, el);
-            }
-            else if(col <= 5){
-                return elementInBox(0, 2, 3,5, el);
-            }
-            else {
-                return elementInBox(0, 2, 6,8, el);
-            }
+        int row_start = 0, col_start = 0;
+
+        if (n == 9) {
+            row_start = row / 3 * 3;
+            col_start = col/ 3 * 3;
+            return elementInBox(row_start, row_start + 2, col_start, col_start + 2, el);
         }
-        else if(row <= 5){
-            if(col <= 2){
-                return elementInBox(3,5,0,2, el);
-            }
-            else if(col <= 5){
-                return elementInBox(3,5,3,5, el);
-            }
-            else {
-                return elementInBox(3,5,6,8, el);
-            }
-        }
-        else{
-            if(col <= 2){
-                return elementInBox(6,8,0,2, el);
-            }
-            else if(col <= 5){
-                return elementInBox(6,8,3,5, el);
-            }
-            else {
-                return elementInBox(6,8,6,8, el);
-            }
+        else {
+            row_start = row / 2 * 2;
+            col_start = col/ 2 * 2;
+            return elementInBox(row_start, row_start + 1, col_start, col_start + 1, el);
         }
     }
 
-    private boolean elementInBox(int row_start, int row_end, int col_start, int col_end, int el){ // 0=< row_start, row_end <=n  0=< col_start, col_end <=n
+    private boolean elementInBox(int row_start, int row_end, int col_start, int col_end, int el){ // 0=< row_start, row_end < n  0=< col_start, col_end < n
         for (int i = row_start; i <= row_end; i++) {
             for (int j = col_start; j <= col_end; j++) {
                 if (A[i][j] == el) { return true; }
@@ -142,8 +141,9 @@ public class Logic {
         boolean hasZeros = false;
         for (int i = 0; i <= n - 1;i++){
             for (int j = 0; j <= n - 1;j++){
-                if(A[i][j] == 0){
+                if (A[i][j] == 0) {
                     hasZeros = true;
+                    break;
                 }
             }
         }
