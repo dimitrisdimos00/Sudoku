@@ -137,9 +137,7 @@ public class SudokuFrame extends JFrame{
         if (aSecondMenu.getEpilogiKillerSudoku().isSelected()) {
 
             thirdPanel = new JPanel();
-            thirdPanel.setBorder(BorderFactory.createTitledBorder("Killer Sudoku" + thirdPanelLabel));
-
-
+            thirdPanel.setBorder(BorderFactory.createTitledBorder(" Killer Sudoku" + thirdPanelLabel.getText()));
 
             add(thirdPanel, BorderLayout.LINE_END);
         }
