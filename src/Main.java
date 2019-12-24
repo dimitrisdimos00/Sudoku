@@ -1,5 +1,3 @@
-package GUI;
-
 import GUI.AllTheMenus.MainMenu;
 
 public class Main {

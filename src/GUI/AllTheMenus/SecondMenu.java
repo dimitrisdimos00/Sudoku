@@ -46,6 +46,13 @@ public class SecondMenu extends JFrame{
         return EpilogiGrammaton;
     }
 
+    public JCheckBox gethBohtheia() {
+        return hBohtheia;
+    }
+    public void sethBohtheia(JCheckBox hBohtheia) {
+        this.hBohtheia = hBohtheia;
+    }
+
     public String[] getStrings() {
         return strings;
     }
