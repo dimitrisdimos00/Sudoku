@@ -10,6 +10,8 @@ import java.awt.*;
 
 public class SudokuFrame extends JFrame{
 
+    private int width = 500;
+    private int height = 500;
     private int[] numbers = null;
     private char[] letters = null;
 
@@ -19,16 +21,18 @@ public class SudokuFrame extends JFrame{
     private String borderName;
     private int numOfRows;
     private int numOfColumns;
-    private String ButtonName;
+    private JTextField[][] theField;
 
     private JPanel firstPanel;
     private JPanel secondPanel;
-    private JTextField[][] theField;
+    private JPanel thirdPanel;
 
-    private JLabel aLabel;
-    private JTextField aTextField;
+    private JTextField secondPanelTextField;
+    private JLabel secondPanelLabel;
+    private JLabel thirdPanelLabel;
 
     private JButton CheckButton;
+    private String ButtonName;
 
     //-------------------------------------------------------------------------------------------------
 
@@ -86,7 +90,9 @@ public class SudokuFrame extends JFrame{
             this.nameOfGame = "Duidoku";
 
         this.ButtonName = aSecondMenu.isFromGreekMenu() ? "Έλεγχος" : " Check ";
-        this.borderName = aSecondMenu.isFromGreekMenu() ? " Βοήθεια " : "Help" ;
+        this.borderName = aSecondMenu.isFromGreekMenu() ? " Η Βοήθεια " : " The Help " ;
+        this.secondPanelLabel = new JLabel(aSecondMenu.isFromGreekMenu() ? " Οι χαρακτήρες που επιτρέπονται στο επιλεγμένο κουτάκι είναι: " : " The Characters you can put in the current box are: ");
+        this.thirdPanelLabel = new JLabel(aSecondMenu.isFromGreekMenu() ? " πληροφορίες " : " information ");
 
         this.aSecondMenu = aSecondMenu;
         this.numOfRows = numOfRows;
@@ -112,25 +118,33 @@ public class SudokuFrame extends JFrame{
             }
         }
 
-        //-----------------------------------------------------------------------------------------------------------------------------
-            if (aSecondMenu.gethBohtheia().isSelected() || aSecondMenu.getEpilogiKillerSudoku().isSelected()) {
+//-------------------------------------------------------------------------------------------------------------------------------
+        if (aSecondMenu.gethBohtheia().isSelected()) {
 
-                secondPanel = new JPanel();
-                TitledBorder border = BorderFactory.createTitledBorder(borderName);
-                secondPanel.setBorder(border);
-                secondPanel.setLayout(new GridLayout(1,0));
+            secondPanel = new JPanel();
+            TitledBorder border = BorderFactory.createTitledBorder(borderName);
+            secondPanel.setBorder(border);
 
-                aLabel = new JLabel(borderName + " :");
-                aTextField = new JTextField();
-                aTextField.setEditable(false);
+            secondPanelTextField = new JTextField("                    ");
+            secondPanelTextField.setEditable(false);
 
-                secondPanel.add(aLabel, BorderLayout.NORTH);
-                secondPanel.add(aTextField, BorderLayout.NORTH);
+            secondPanel.add(secondPanelLabel);
+            secondPanel.add(secondPanelTextField);
 
-                add(secondPanel, BorderLayout.LINE_END);
-            }
+            add(secondPanel, BorderLayout.PAGE_START);
+        }
 
-        //-----------------------------------------------------------------------------------------------------------------------------
+        if (aSecondMenu.getEpilogiKillerSudoku().isSelected()) {
+
+            thirdPanel = new JPanel();
+            thirdPanel.setBorder(BorderFactory.createTitledBorder("Killer Sudoku" + thirdPanelLabel));
+
+
+
+            add(thirdPanel, BorderLayout.LINE_END);
+        }
+//-------------------------------------------------------------------------------------------------------------------------------
+
         CheckButtonActionListener aCheckButtonActionListener = new CheckButtonActionListener(this);
         CheckButton = new JButton(ButtonName);
         CheckButton.addActionListener(aCheckButtonActionListener);
@@ -139,7 +153,7 @@ public class SudokuFrame extends JFrame{
         add(CheckButton, BorderLayout.PAGE_END);
         pack();
 
-        setSize(500,500);
+        setSize(width, height);
         setLocationRelativeTo(null);
         setVisible(true);
     }
