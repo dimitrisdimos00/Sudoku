@@ -12,19 +12,21 @@ public class Logic {
     private int[][] A;
     private int n;
     private File puzzlesFile;
+    private int selection;
 
     public Logic(int sudoku_selection){//sudoku_selection = {1(classic), 2(killer), 3(duidoku)}
+        selection = sudoku_selection;
         File file;
         if (sudoku_selection == 1){
-            file = new File("classicpuzzles");
+            file = new File("src/LOGIC/classicpuzzles");
             n = 9;
         }
         else if(sudoku_selection == 2){
-            file = new File("killerpuzzles");
+            file = new File("src/LOGIC/killerpuzzles");
             n = 9;
         }
         else{
-            file = new File("duidokupuzzles");
+            file = new File("src/LOGIC/duidokupuzzles");
             n = 4;
         }
         puzzlesFile = file;
@@ -57,7 +59,6 @@ public class Logic {
 
         try{
             Scanner scanner = new Scanner(puzzlesFile);
-            System.out.println(scanner.next());
             while (scanner.hasNext()) {
                 StringElements.add(scanner.next());
             }
@@ -68,7 +69,7 @@ public class Logic {
             return null;
         }
         catch (Exception ex){
-            System.out.println(ex);
+            System.err.println(ex);
             return null;
         }
     }
@@ -85,7 +86,6 @@ public class Logic {
         size = StringElements.size();
         int randomInt = rand.nextInt(size);
         char[] characterArray = StringElements.get(randomInt).toCharArray();
-
         size = characterArray.length;
         Integer[] integerArray = new Integer[size];
         for (int i = 0; i < size; i++) {
