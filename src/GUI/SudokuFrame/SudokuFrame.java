@@ -5,20 +5,28 @@ import GUI.AllTheMenus.JTextFieldLimit;
 import GUI.AllTheMenus.SecondMenu;
 
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
 import java.awt.*;
 
-public class OriginalSudokuFrame extends JFrame{
+public class SudokuFrame extends JFrame{
 
     private int[] numbers = null;
     private char[] letters = null;
 
+    private SecondMenu aSecondMenu;
+
     private String nameOfGame;
+    private String borderName;
     private int numOfRows;
     private int numOfColumns;
     private String ButtonName;
 
     private JPanel firstPanel;
+    private JPanel secondPanel;
     private JTextField[][] theField;
+
+    private JLabel aLabel;
+    private JTextField aTextField;
 
     private JButton CheckButton;
 
@@ -59,7 +67,7 @@ public class OriginalSudokuFrame extends JFrame{
 
     //--------------------------------------------------------------------------------------------------
 
-    public OriginalSudokuFrame(SecondMenu aSecondMenu, int numOfRows, int numOfColumns) {
+    public SudokuFrame(SecondMenu aSecondMenu, int numOfRows, int numOfColumns) {
 
         if (!aSecondMenu.getEpilogiDuiDoku().isSelected() && aSecondMenu.getEpilogiArithmon().isSelected())
             numbers = new int[]{1, 2, 3, 4, 5, 6, 7, 8 ,9};
@@ -72,21 +80,24 @@ public class OriginalSudokuFrame extends JFrame{
 
         if (aSecondMenu.getEpilogiOriginalSudoku().isSelected())
             this.nameOfGame = "Original Sudoku";
+        else if (aSecondMenu.getEpilogiKillerSudoku().isSelected())
+            this.nameOfGame = "Killer Sudoku";
         else if (aSecondMenu.getEpilogiDuiDoku().isSelected())
             this.nameOfGame = "Duidoku";
 
-        String ButtonName = aSecondMenu.isFromGreekMenu() ? "Έλεγχος" : "Check";
+        this.ButtonName = aSecondMenu.isFromGreekMenu() ? "Έλεγχος" : " Check ";
+        this.borderName = aSecondMenu.isFromGreekMenu() ? " Βοήθεια " : "Help" ;
 
+        this.aSecondMenu = aSecondMenu;
         this.numOfRows = numOfRows;
         this.numOfColumns = numOfColumns;
-        this.ButtonName = ButtonName;
 
         this.makeFrame();
     }
 
     private void makeFrame() {
         setTitle(nameOfGame);
-        setResizable(false);
+        setResizable(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         firstPanel = new JPanel(new GridLayout(numOfRows,numOfColumns));
@@ -101,11 +112,30 @@ public class OriginalSudokuFrame extends JFrame{
             }
         }
 
+        //-----------------------------------------------------------------------------------------------------------------------------
+            if (aSecondMenu.gethBohtheia().isSelected() || aSecondMenu.getEpilogiKillerSudoku().isSelected()) {
+
+                secondPanel = new JPanel();
+                TitledBorder border = BorderFactory.createTitledBorder(borderName);
+                secondPanel.setBorder(border);
+                secondPanel.setLayout(new GridLayout(1,0));
+
+                aLabel = new JLabel(borderName + " :");
+                aTextField = new JTextField();
+                aTextField.setEditable(false);
+
+                secondPanel.add(aLabel, BorderLayout.NORTH);
+                secondPanel.add(aTextField, BorderLayout.NORTH);
+
+                add(secondPanel, BorderLayout.LINE_END);
+            }
+
+        //-----------------------------------------------------------------------------------------------------------------------------
         CheckButtonActionListener aCheckButtonActionListener = new CheckButtonActionListener(this);
         CheckButton = new JButton(ButtonName);
         CheckButton.addActionListener(aCheckButtonActionListener);
 
-        add(firstPanel);
+        add(firstPanel, BorderLayout.CENTER);
         add(CheckButton, BorderLayout.PAGE_END);
         pack();
 
