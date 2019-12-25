@@ -14,6 +14,38 @@ public class Logic {
     private File puzzlesFile;
     private int selection;
 
+    //------------------------------------------------------------------------------------------------
+
+    public int[][] getA() {
+        return A;
+    }
+    public int getN() {
+        return n;
+    }
+    public File getPuzzlesFile() {
+        return puzzlesFile;
+    }
+    public int getSelection() {
+        return selection;
+    }
+
+
+    public void setA(int[][] a) {
+        A = a;
+    }
+    public void setN(int n) {
+        this.n = n;
+    }
+    public void setPuzzlesFile(File puzzlesFile) {
+        this.puzzlesFile = puzzlesFile;
+    }
+    public void setSelection(int selection) {
+        this.selection = selection;
+    }
+
+
+    //------------------------------------------------------------------------------------------------
+
     public Logic(int sudoku_selection){//sudoku_selection = {1(classic), 2(killer), 3(duidoku)}
         selection = sudoku_selection;
         File file;

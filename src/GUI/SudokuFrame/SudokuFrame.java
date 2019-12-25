@@ -3,6 +3,7 @@ package GUI.SudokuFrame;
 import GUI.AllOfListeners.CheckButtonActionListener;
 import GUI.AllTheMenus.JTextFieldLimit;
 import GUI.AllTheMenus.SecondMenu;
+import LOGIC.Logic;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
@@ -16,6 +17,8 @@ public class SudokuFrame extends JFrame{
     private char[] letters = null;
 
     private SecondMenu aSecondMenu;
+
+    private Logic aLogic;
 
     private String nameOfGame;
     private String borderName;
@@ -82,12 +85,18 @@ public class SudokuFrame extends JFrame{
         if (aSecondMenu.getEpilogiDuiDoku().isSelected() && aSecondMenu.getEpilogiGrammaton().isSelected())
             letters = new char[]{'A', 'B', 'C', 'D'};
 
-        if (aSecondMenu.getEpilogiOriginalSudoku().isSelected())
+        if (aSecondMenu.getEpilogiOriginalSudoku().isSelected()) {
             this.nameOfGame = "Original Sudoku";
-        else if (aSecondMenu.getEpilogiKillerSudoku().isSelected())
+            aLogic = new Logic(1);
+        }
+        else if (aSecondMenu.getEpilogiKillerSudoku().isSelected()) {
             this.nameOfGame = "Killer Sudoku";
-        else if (aSecondMenu.getEpilogiDuiDoku().isSelected())
+            aLogic = new Logic(2);
+        }
+        else if (aSecondMenu.getEpilogiDuiDoku().isSelected()) {
             this.nameOfGame = "Duidoku";
+            aLogic = new Logic(3);
+        }
 
         this.ButtonName = aSecondMenu.isFromGreekMenu() ? "Έλεγχος" : " Check ";
         this.borderName = aSecondMenu.isFromGreekMenu() ? " Η Βοήθεια " : " The Help " ;
@@ -97,14 +106,6 @@ public class SudokuFrame extends JFrame{
         this.aSecondMenu = aSecondMenu;
         this.numOfRows = numOfRows;
         this.numOfColumns = numOfColumns;
-
-        this.makeFrame();
-    }
-
-    private void makeFrame() {
-        setTitle(nameOfGame);
-        setResizable(true);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         firstPanel = new JPanel(new GridLayout(numOfRows,numOfColumns));
         theField = new JTextField[numOfRows][numOfColumns];
@@ -117,6 +118,25 @@ public class SudokuFrame extends JFrame{
                 firstPanel.add(theField[i][j]);
             }
         }
+
+        for (int row=0;row<numOfRows;row++) {
+            for (int col=0;col<numOfColumns;col++) {
+                if (aLogic.getA()[row][col]==0) {
+                    theField[row][col].setText("");
+                } else {
+                    theField[row][col].setText(String.valueOf(aLogic.getA()[row][col]));
+                    theField[row][col].setEditable(false);
+                }
+            }
+        }
+
+        this.makeFrame();
+    }
+
+    private void makeFrame() {
+        setTitle(nameOfGame);
+        setResizable(true);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 //-------------------------------------------------------------------------------------------------------------------------------
         if (aSecondMenu.gethBohtheia().isSelected()) {
