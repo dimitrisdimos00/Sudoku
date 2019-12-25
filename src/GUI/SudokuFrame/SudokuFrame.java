@@ -39,6 +39,14 @@ public class SudokuFrame extends JFrame{
 
     //-------------------------------------------------------------------------------------------------
 
+
+    public Logic getaLogic() {
+        return aLogic;
+    }
+    public void setaLogic(Logic aLogic) {
+        this.aLogic = aLogic;
+    }
+
     public JTextField[][] getTheField() {
         return theField;
     }
@@ -91,11 +99,11 @@ public class SudokuFrame extends JFrame{
         }
         else if (aSecondMenu.getEpilogiKillerSudoku().isSelected()) {
             this.nameOfGame = "Killer Sudoku";
-            aLogic = new Logic(2);
+            //aLogic = new Logic(2);
         }
         else if (aSecondMenu.getEpilogiDuiDoku().isSelected()) {
             this.nameOfGame = "Duidoku";
-            aLogic = new Logic(3);
+            //aLogic = new Logic(3);
         }
 
         this.ButtonName = aSecondMenu.isFromGreekMenu() ? "Έλεγχος" : " Check ";
