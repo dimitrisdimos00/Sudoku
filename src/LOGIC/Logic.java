@@ -47,54 +47,61 @@ public class Logic {
     //------------------------------------------------------------------------------------------------
 
     public Logic(int sudoku_selection){//sudoku_selection = {1(classic), 2(killer), 3(duidoku)}
-        selection = sudoku_selection;
-        File file;
-        if (sudoku_selection == 1){
-            file = new File("src/LOGIC/classicpuzzles");
-            n = 9;
+        setSelection(sudoku_selection);
+        if (getSelection() == 1){
+            setPuzzlesFile(new File("src/LOGIC/classicpuzzles"));
+            setN(9);
         }
-        else if(sudoku_selection == 2){
-            file = new File("src/LOGIC/killerpuzzles");
-            n = 9;
+        else if(getSelection() == 2){
+            setPuzzlesFile(new File("src/LOGIC/killerpuzzles"));
+            setN(9);
         }
         else{
-            file = new File("src/LOGIC/duidokupuzzles");
-            n = 4;
+            setN(4);
         }
-        puzzlesFile = file;
-        A = new int[n][n];
+        A = new int[getN()][getN()];
         arrayInitialization();
     }
 
     private void arrayInitialization(){
-        Integer[] intElements = GetRandomPuzzle();
+        int[][] puzzle = GetRandomPuzzle();
 
-        if (intElements == null) {
+        if (puzzle == null) {
             System.out.println("intElements = null!");
             return;
         }
-        int counter = 0;
-        int sizeOfArray = 0;
-        sizeOfArray = intElements.length;
-        for(int i = 0; i <= n - 1; i ++){
-            for(int j = 0; j <= n - 1; j++){
-                if (counter < sizeOfArray) {
-                    A[i][j] = intElements[counter];
-                    counter ++;
-                }
-            }
-        }
+        setA(puzzle);
     }
 
-    private ArrayList<String> readPuzzlesFromFile(){
-        ArrayList<String> StringElements= new ArrayList<>();
+    private ArrayList<int[][]> readPuzzlesFromFile(){
+        ArrayList<int[][]> puzzles = new ArrayList<>();
 
         try{
             Scanner scanner = new Scanner(puzzlesFile);
-            while (scanner.hasNext()) {
-                StringElements.add(scanner.next());
+            for (int i = 0; i < 10; i++) { // 10 puzzles
+                int[][] puzzle = new int[n][n];
+                int[] elements = new int[n*n];
+
+                int counter = 0;
+                int nextInt = scanner.nextInt();
+
+                while (nextInt != -1) {
+                    elements[counter] = nextInt;
+                    counter++;
+                    nextInt = scanner.nextInt();
+                }
+
+                counter = 0;
+                for (int j = 0; j < n; j++) {
+                    for (int k = 0; k < n; k++) {
+                        puzzle[j][k] = elements[counter];
+                        counter++;
+                    }
+                }
+                puzzles.add(puzzle);
             }
-            return StringElements;
+
+            return puzzles;
         }
         catch (FileNotFoundException e){
             System.out.println( "Δεν βρέθηκε ο φάκελος!");
@@ -106,28 +113,21 @@ public class Logic {
         }
     }
 
-    private Integer[] GetRandomPuzzle(){
-        ArrayList<String> StringElements= readPuzzlesFromFile();
+    private int[][] GetRandomPuzzle(){
+        ArrayList<int[][]> puzzles = readPuzzlesFromFile();
+
+//        if (puzzles == null) {
+//            System.out.println("puzzles == null!");
+//            return null;
+//        }
         Random rand = new Random();
+//        int size = puzzles.size();
+        int randomInt = rand.nextInt(10);
 
-        int size = 0;
-        if (StringElements == null) {
-            System.out.println("StringELements == null!");
-            return null;
-        }
-        size = StringElements.size();
-        int randomInt = rand.nextInt(size);
-        char[] characterArray = StringElements.get(randomInt).toCharArray();
-        size = characterArray.length;
-        Integer[] integerArray = new Integer[size];
-        for (int i = 0; i < size; i++) {
-            integerArray[i] = Character.getNumericValue(characterArray[i]);
-        }
-        return integerArray;
-
+        return puzzles.get(randomInt);
     }
 
-    private boolean elementInRow(int row, int el){ // 0=< row_start, row_end <=n  0=< col_start, col_end <=n
+    private boolean isElementInRow(int row, int el){ // 0=< row_start, row_end <=n  0=< col_start, col_end <=n
         for (int j = 0; j <= n - 1; j++) {
             if(A[row][j] == el){
                 return true;
@@ -136,7 +136,7 @@ public class Logic {
         return false;
     } //ok
 
-    private boolean elementInColumn(int col, int el){ // 0=< row_start, row_end <=n  0=< col_start, col_end <=n
+    private boolean isElementInColumn(int col, int el){ // 0=< row_start, row_end <=n  0=< col_start, col_end <=n
         for (int i = 0; i <= n - 1; i++) {
             if(A[i][col] == el){
                 return true;
@@ -145,22 +145,22 @@ public class Logic {
         return false;
     } //ok
 
-    private boolean findAndCheckBox(int row, int col, int el){
+    private boolean isElementInBox(int row, int col, int el){
         int row_start = 0, col_start = 0;
 
         if (n == 9) {
             row_start = row / 3 * 3;
             col_start = col/ 3 * 3;
-            return elementInBox(row_start, row_start + 2, col_start, col_start + 2, el);
+            return isElementInGivenArea(row_start, row_start + 2, col_start, col_start + 2, el);
         }
         else {
             row_start = row / 2 * 2;
             col_start = col/ 2 * 2;
-            return elementInBox(row_start, row_start + 1, col_start, col_start + 1, el);
+            return isElementInGivenArea(row_start, row_start + 1, col_start, col_start + 1, el);
         }
     }
 
-    private boolean elementInBox(int row_start, int row_end, int col_start, int col_end, int el){ // 0=< row_start, row_end < n  0=< col_start, col_end < n
+    private boolean isElementInGivenArea(int row_start, int row_end, int col_start, int col_end, int el){ // 0=< row_start, row_end < n  0=< col_start, col_end < n
         for (int i = row_start; i <= row_end; i++) {
             for (int j = col_start; j <= col_end; j++) {
                 if (A[i][j] == el) { return true; }
@@ -192,23 +192,14 @@ public class Logic {
             return false;
         }
         else{
-            boolean canBePlaced = true;
-            canBePlaced = !elementInColumn(col, el);
+            boolean canBePlaced = !isElementInRow(row, el) && !isElementInColumn(col, el) && !isElementInBox(row, col, el);
 
-            if (!canBePlaced) {
-                canBePlaced = !elementInRow(row, el);
-            }
-
-            if(!canBePlaced){
-                canBePlaced = !findAndCheckBox(row, col, el);
-            }
-
-            if(!canBePlaced){
+            if(canBePlaced){
                 A[row][col] = el;
                 return true;
             }
             else{
-                System.out.println("Ayto to stoixeio den mporei na mpei se ayth th thesi!");
+                System.out.println("Αυτό το στοιχείο δεν μπορεί να μπεί σε αυτή τη θέση!");
                 return false;
             }
         }
@@ -217,7 +208,7 @@ public class Logic {
     public void showArray(){ //ok
         for (int i = 0; i <= n - 1;i++){
             for (int j = 0; j <= n - 1;j++){
-                System.out.print(A[i][j] + " ");
+                System.out.print(A[i][j] + "  ");
             }
             System.out.println('\n');
         }
