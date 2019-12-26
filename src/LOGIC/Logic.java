@@ -60,7 +60,17 @@ public class Logic {
             setN(4);
         }
         A = new int[n][n];
-        setA(GetRandomPuzzle());
+        if (n == 4){
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < n; j++) {
+                    A[i][j] = 0;
+                }
+            }
+        }
+        else {
+            setA(GetRandomPuzzle());
+        }
+
     }
 
     private ArrayList<int[][]> readPuzzlesFromFile(){
@@ -173,26 +183,18 @@ public class Logic {
     }
 
     public boolean insertElement(int el, int row, int col){ //  0=< row <=n  0=< col <=n
-        if(! (row >= 0 && row <= n && col >= 0 && col <= n)) {
-            System.out.println("λάθος συντεταγμένες");
+        if(! (row >= 0 && row < n && col >= 0 && col < n)) {
             return false;
         }
-        else if(!(el >= 1 && el <= 9)){
-            System.out.println("Λάθος στοιχείο!");
+        else if(!(el >= 1 && el <= n)){
             return false;
         }
-        else{
-            boolean canBePlaced = !isElementInRow(row, el) && !isElementInColumn(col, el) && !isElementInBox(row, col, el);
-
-            if(canBePlaced){
-                A[row][col] = el;
-                return true;
-            }
-            else{
-                System.out.println("Αυτό το στοιχείο δεν μπορεί να μπεί σε αυτή τη θέση!");
-                return false;
-            }
+        boolean canBePlaced = !isElementInRow(row, el) && !isElementInColumn(col, el) && !isElementInBox(row, col, el);
+        if(canBePlaced){
+            A[row][col] = el;
+            return true;
         }
+        return false;
     }
 
     public ArrayList<Integer> availableNumbersForGivenCoordinates(int row, int col){
@@ -203,6 +205,18 @@ public class Logic {
             }
         }
         return availableNumbers;
+    }
+
+    public void computerPlays(){
+        Random random = new Random();
+        int randomRow = random.nextInt(n);
+        int randomColumn = random.nextInt(n);
+        int randomElement = random.nextInt(n);
+        while (!insertElement(randomElement, randomRow, randomColumn)){
+            randomRow = random.nextInt(n);
+            randomColumn = random.nextInt(n);
+            randomElement = random.nextInt(n);
+        }
     }
 
     public void showArray(){ //ok
