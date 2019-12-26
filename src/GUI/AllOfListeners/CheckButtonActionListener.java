@@ -26,6 +26,7 @@ public class CheckButtonActionListener implements ActionListener {
                 if (aSudokuFrame.getTheField()[row][col].isEditable()) {
 
                     if (aSudokuFrame.getTheField()[row][col].getText().equals("")) {
+                        aSudokuFrame.getaLogic().getA()[row][col] = 0;
                         aSudokuFrame.getTheField()[row][col].setBackground(Color.red);
                         continue;
                     } else if (aSudokuFrame.getLetters() != null) {
@@ -45,6 +46,7 @@ public class CheckButtonActionListener implements ActionListener {
                     }
 
                     if (!found) {
+                        aSudokuFrame.getaLogic().getA()[row][col] = 0;
                         aSudokuFrame.getTheField()[row][col].setBackground(Color.red);
                         continue;
                     }
@@ -69,6 +71,5 @@ public class CheckButtonActionListener implements ActionListener {
             aSudokuFrame.setVisible(false);
             new WinningFrame(aSudokuFrame);
         }
-
     }
 }
