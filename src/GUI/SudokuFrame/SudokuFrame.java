@@ -40,6 +40,13 @@ public class SudokuFrame extends JFrame{
     //-------------------------------------------------------------------------------------------------
 
 
+    public SecondMenu getaSecondMenu() {
+        return aSecondMenu;
+    }
+    public void setaSecondMenu(SecondMenu aSecondMenu) {
+        this.aSecondMenu = aSecondMenu;
+    }
+
     public Logic getaLogic() {
         return aLogic;
     }
@@ -143,7 +150,7 @@ public class SudokuFrame extends JFrame{
 
     private void makeFrame() {
         setTitle(nameOfGame);
-        setResizable(true);
+        setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 //-------------------------------------------------------------------------------------------------------------------------------

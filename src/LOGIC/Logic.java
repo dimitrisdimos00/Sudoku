@@ -127,7 +127,7 @@ public class Logic {
         return puzzles.get(randomInt);
     }
 
-    private boolean isElementInRow(int row, int el){ // 0=< row_start, row_end <=n  0=< col_start, col_end <=n
+    public boolean isElementInRow(int row, int el){ // 0=< row_start, row_end <=n  0=< col_start, col_end <=n
         for (int j = 0; j <= n - 1; j++) {
             if(A[row][j] == el){
                 return true;
@@ -136,7 +136,7 @@ public class Logic {
         return false;
     } //ok
 
-    private boolean isElementInColumn(int col, int el){ // 0=< row_start, row_end <=n  0=< col_start, col_end <=n
+    public boolean isElementInColumn(int col, int el){ // 0=< row_start, row_end <=n  0=< col_start, col_end <=n
         for (int i = 0; i <= n - 1; i++) {
             if(A[i][col] == el){
                 return true;
@@ -145,7 +145,7 @@ public class Logic {
         return false;
     } //ok
 
-    private boolean isElementInBox(int row, int col, int el){
+    public boolean isElementInBox(int row, int col, int el){
         int row_start = 0, col_start = 0;
 
         if (n == 9) {

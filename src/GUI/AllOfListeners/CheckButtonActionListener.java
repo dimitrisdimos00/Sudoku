@@ -1,6 +1,7 @@
 package GUI.AllOfListeners;
 
 import GUI.SudokuFrame.SudokuFrame;
+import GUI.SudokuFrame.WinningFrame;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -27,22 +28,17 @@ public class CheckButtonActionListener implements ActionListener {
                     if (aSudokuFrame.getTheField()[row][col].getText().equals("")) {
                         aSudokuFrame.getTheField()[row][col].setBackground(Color.red);
                         continue;
-                    }
-                    else if (aSudokuFrame.getLetters() != null) {
+                    } else if (aSudokuFrame.getLetters() != null) {
                         for (int k = 0; k < aSudokuFrame.getLetters().length; k++) {
                             if (aSudokuFrame.getTheField()[row][col].getText().equals(Character.toString(aSudokuFrame.getLetters()[k]))) {
-                                System.out.println(aSudokuFrame.getTheField()[row][col].getText());
                                 found = true;
-                                aSudokuFrame.getTheField()[row][col].setBackground(Color.white);
                                 break;
                             }
                         }
                     } else {
                         for (int k = 0; k < aSudokuFrame.getNumbers().length; k++) {
                             if (aSudokuFrame.getTheField()[row][col].getText().equals(String.valueOf(aSudokuFrame.getNumbers()[k]))) {
-                                System.out.println(aSudokuFrame.getTheField()[row][col].getText());
                                 found = true;
-                                aSudokuFrame.getTheField()[row][col].setBackground(Color.white);
                                 break;
                             }
                         }
@@ -53,12 +49,26 @@ public class CheckButtonActionListener implements ActionListener {
                         continue;
                     }
 
-                    if (!(aSudokuFrame.getaLogic().insertElement(Integer.parseInt(aSudokuFrame.getTheField()[row][col].getText()), row, col))) {
+                    if (!aSudokuFrame.getaLogic().isElementInRow(row, Integer.parseInt(aSudokuFrame.getTheField()[row][col].getText())) &&
+                        !aSudokuFrame.getaLogic().isElementInColumn(col, Integer.parseInt(aSudokuFrame.getTheField()[row][col].getText())) &&
+                        !aSudokuFrame.getaLogic().isElementInBox(row, col, Integer.parseInt(aSudokuFrame.getTheField()[row][col].getText()))) {
+
+                        aSudokuFrame.getaLogic().insertElement(Integer.parseInt(aSudokuFrame.getTheField()[row][col].getText()), row, col);
+                        aSudokuFrame.getTheField()[row][col].setBackground(Color.white);
+                    } else if (Integer.parseInt(aSudokuFrame.getTheField()[row][col].getText()) == (aSudokuFrame.getaLogic().getA()[row][col])) {
+                        aSudokuFrame.getTheField()[row][col].setBackground(Color.white);
+                    } else {
                         aSudokuFrame.getTheField()[row][col].setBackground(Color.red);
                     }
 
                 }
             }
         }
+
+        if (aSudokuFrame.getaLogic().hasWon()) {
+            aSudokuFrame.setVisible(false);
+            new WinningFrame(aSudokuFrame);
+        }
+
     }
 }
