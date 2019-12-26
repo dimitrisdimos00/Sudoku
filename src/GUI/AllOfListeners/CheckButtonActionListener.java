@@ -71,6 +71,5 @@ public class CheckButtonActionListener implements ActionListener {
             aSudokuFrame.setVisible(false);
             new WinningFrame(aSudokuFrame);
         }
-
     }
 }

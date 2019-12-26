@@ -36,7 +36,6 @@ public class TextFieldFocusListener implements FocusListener {
         this.theCharacterMap = theCharacterMap;
     }
 
-
     //-------------------------------------------------------------------------------------
 
     public TextFieldFocusListener(SudokuFrame aSudokuFrame, int row, int col, Logic aLogic) {
