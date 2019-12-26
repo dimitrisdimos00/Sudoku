@@ -59,18 +59,8 @@ public class Logic {
         else{
             setN(4);
         }
-        A = new int[getN()][getN()];
-        arrayInitialization();
-    }
-
-    private void arrayInitialization(){
-        int[][] puzzle = GetRandomPuzzle();
-
-        if (puzzle == null) {
-            System.out.println("intElements = null!");
-            return;
-        }
-        setA(puzzle);
+        A = new int[n][n];
+        setA(GetRandomPuzzle());
     }
 
     private ArrayList<int[][]> readPuzzlesFromFile(){
@@ -116,12 +106,12 @@ public class Logic {
     private int[][] GetRandomPuzzle(){
         ArrayList<int[][]> puzzles = readPuzzlesFromFile();
 
-//        if (puzzles == null) {
-//            System.out.println("puzzles == null!");
-//            return null;
-//        }
+        if (puzzles == null) {
+            System.out.println("puzzles == null!");
+            return null;
+        }
         Random rand = new Random();
-//        int size = puzzles.size();
+
         int randomInt = rand.nextInt(10);
 
         return puzzles.get(randomInt);
@@ -146,7 +136,7 @@ public class Logic {
     } //ok
 
     public boolean isElementInBox(int row, int col, int el){
-        int row_start = 0, col_start = 0;
+        int row_start, col_start;
 
         if (n == 9) {
             row_start = row / 3 * 3;
@@ -203,6 +193,16 @@ public class Logic {
                 return false;
             }
         }
+    }
+
+    public ArrayList<Integer> availableNumbersForGivenCoordinates(int row, int col){
+        ArrayList<Integer> availableNumbers = new ArrayList<>();
+        for (int i = 1; i < 10; i++) {
+            if (insertElement(i, row, col)){
+                availableNumbers.add(i);
+            }
+        }
+        return availableNumbers;
     }
 
     public void showArray(){ //ok

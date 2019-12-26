@@ -19,7 +19,6 @@ public class MainLogic {
             l.insertElement(answer[0], answer[1], answer[2]); //returns boolean
         }
 
-
     }
 
 
