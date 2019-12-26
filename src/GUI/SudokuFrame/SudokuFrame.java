@@ -3,6 +3,7 @@ package GUI.SudokuFrame;
 import GUI.AllOfListeners.CheckButtonActionListener;
 import GUI.AllTheMenus.JTextFieldLimit;
 import GUI.AllTheMenus.SecondMenu;
+import GUI.AllOfListeners.TextFieldFocusListener;
 import LOGIC.Logic;
 
 import javax.swing.*;
@@ -25,6 +26,8 @@ public class SudokuFrame extends JFrame{
     private int numOfRows;
     private int numOfColumns;
     private JTextField[][] theField;
+
+    private TextFieldFocusListener aTextFieldFocusListener;
 
     private JPanel firstPanel;
     private JPanel secondPanel;
@@ -87,6 +90,20 @@ public class SudokuFrame extends JFrame{
         this.letters = letters;
     }
 
+    public JTextField getSecondPanelTextField() {
+        return secondPanelTextField;
+    }
+    public void setSecondPanelTextField(JTextField secondPanelTextField) {
+        this.secondPanelTextField = secondPanelTextField;
+    }
+
+    public TextFieldFocusListener getaTextFieldFocusListener() {
+        return aTextFieldFocusListener;
+    }
+    public void setaTextFieldFocusListener(TextFieldFocusListener aTextFieldFocusListener) {
+        this.aTextFieldFocusListener = aTextFieldFocusListener;
+    }
+
     //--------------------------------------------------------------------------------------------------
 
     public SudokuFrame(SecondMenu aSecondMenu, int numOfRows, int numOfColumns) {
@@ -130,6 +147,10 @@ public class SudokuFrame extends JFrame{
                 theField[i][j].setHorizontalAlignment(JTextField.CENTER);
                 theField[i][j].setFont(new Font("Verdana", Font.BOLD,20));
                 theField[i][j].setDocument(new JTextFieldLimit(1));
+                if (this.aSecondMenu.gethBohtheia().isSelected()) {
+                    aTextFieldFocusListener = new TextFieldFocusListener(this, i, j, aLogic);
+                    theField[i][j].addFocusListener(aTextFieldFocusListener);
+                }
                 firstPanel.add(theField[i][j]);
             }
         }
@@ -160,12 +181,12 @@ public class SudokuFrame extends JFrame{
             TitledBorder border = BorderFactory.createTitledBorder(borderName);
             secondPanel.setBorder(border);
 
-            secondPanelTextField = new JTextField("                    ");
+            secondPanelTextField = new JTextField("\t\t");
             secondPanelTextField.setEditable(false);
 
             secondPanel.add(secondPanelLabel);
             secondPanel.add(secondPanelTextField);
-
+            secondPanel.setPreferredSize(new Dimension(500,80));
             add(secondPanel, BorderLayout.PAGE_START);
         }
 
