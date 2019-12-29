@@ -1,179 +1,129 @@
 package LOGIC;
 
-import javax.swing.*;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
 public class Logic {
     private int[][] A;
+    private char[][] sudoku;
     private int n;
-    private File puzzlesFile;
-    private int selection;
+    private boolean numerical;
 
     //------------------------------------------------------------------------------------------------
 
     public int[][] getA() {
         return A;
     }
+    public char[][] getSudoku() {
+        return sudoku;
+    }
     public int getN() {
         return n;
     }
-    public File getPuzzlesFile() {
-        return puzzlesFile;
+    public boolean isNumerical() {
+        return numerical;
     }
-    public int getSelection() {
-        return selection;
-    }
-
 
     public void setA(int[][] a) {
         A = a;
     }
+    public void setSudoku(char[][] sudoku) {
+        this.sudoku = sudoku;
+    }
     public void setN(int n) {
         this.n = n;
     }
-    public void setPuzzlesFile(File puzzlesFile) {
-        this.puzzlesFile = puzzlesFile;
+    public void setNumerical(boolean numerical) {
+        this.numerical = numerical;
     }
-    public void setSelection(int selection) {
-        this.selection = selection;
-    }
-
 
     //------------------------------------------------------------------------------------------------
 
-    public Logic(int sudoku_selection){//sudoku_selection = {1(classic), 2(killer), 3(duidoku)}
-        setSelection(sudoku_selection);
-        if (getSelection() == 1){
-            setPuzzlesFile(new File("src/LOGIC/classicpuzzles"));
-            setN(9);
+    private void initializeSudoku(int selection){
+        sudoku = new char[n][n];
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (selection == 1 && numerical) {
+                    sudoku[i][j] = (char)(A[i][j] + '0');
+                }
+                else if (selection == 1) {
+                    sudoku[i][j] = intToChar(A[i][j]);
+                }
+                else {
+                    sudoku[i][j] = '0';
+                }
+            }
         }
-        else if(getSelection() == 2){
-            setPuzzlesFile(new File("src/LOGIC/killerpuzzles"));
-            setN(9);
+    }
+
+    public Logic(int sudoku_selection, boolean isNumerical){//sudoku_selection = {1(classic), 2(killer), 3(duidoku)}
+
+        numerical = isNumerical;
+
+        if (sudoku_selection == 1 || sudoku_selection == 2){
+            n = 9;
+            ReadFile readFile = new ReadFile(sudoku_selection);
+            A = readFile.getRandomPuzzle();
         }
         else{
-            setN(4);
+            n = 4;
+            A = new int[n][n];
         }
-        A = new int[n][n];
-        if (n == 4){
-            for (int i = 0; i < n; i++) {
-                for (int j = 0; j < n; j++) {
-                    A[i][j] = 0;
-                }
-            }
-        }
-        else {
-            setA(GetRandomPuzzle());
-        }
-
+        initializeSudoku(sudoku_selection);
+    }
+    private char intToChar(int i){
+        if (i == 0) { return '0'; }
+        else if (i == 1){ return 'A'; }
+        else if (i == 2){ return 'B'; }
+        else if (i == 3){ return 'C'; }
+        else if (i == 4){ return 'D'; }
+        else if (i == 5){ return 'E'; }
+        else if (i == 6){ return 'F'; }
+        else if (i == 7){ return 'G'; }
+        else if (i == 8){ return 'H'; }
+        return 'I';
     }
 
-    private ArrayList<int[][]> readPuzzlesFromFile(){
-        ArrayList<int[][]> puzzles = new ArrayList<>();
-
-        try{
-            Scanner scanner = new Scanner(puzzlesFile);
-            for (int i = 0; i < 10; i++) { // 10 puzzles
-                int[][] puzzle = new int[n][n];
-                int[] elements = new int[n*n];
-
-                int counter = 0;
-                int nextInt = scanner.nextInt();
-
-                while (nextInt != -1) {
-                    elements[counter] = nextInt;
-                    counter++;
-                    nextInt = scanner.nextInt();
-                }
-
-                counter = 0;
-                for (int j = 0; j < n; j++) {
-                    for (int k = 0; k < n; k++) {
-                        puzzle[j][k] = elements[counter];
-                        counter++;
-                    }
-                }
-                puzzles.add(puzzle);
-            }
-
-            return puzzles;
-        }
-        catch (FileNotFoundException e){
-            System.out.println( "Δεν βρέθηκε ο φάκελος!");
-            return null;
-        }
-        catch (Exception ex){
-            System.err.println(ex);
-            return null;
-        }
-    }
-
-    private int[][] GetRandomPuzzle(){
-        ArrayList<int[][]> puzzles = readPuzzlesFromFile();
-
-        if (puzzles == null) {
-            System.out.println("puzzles == null!");
-            return null;
-        }
-        Random rand = new Random();
-
-        int randomInt = rand.nextInt(10);
-
-        return puzzles.get(randomInt);
-    }
-
-    public boolean isElementInRow(int row, int el){ // 0=< row_start, row_end <=n  0=< col_start, col_end <=n
+    public boolean isElementInRow(int row, char el){        // 0 =< row < n
         for (int j = 0; j <= n - 1; j++) {
-            if(A[row][j] == el){
+            if(sudoku[row][j] == el){
                 return true;
             }
         }
         return false;
-    } //ok
+    }   //ok
 
-    public boolean isElementInColumn(int col, int el){ // 0=< row_start, row_end <=n  0=< col_start, col_end <=n
+    public boolean isElementInColumn(int col, char el){     // 0 =< col < n
         for (int i = 0; i <= n - 1; i++) {
-            if(A[i][col] == el){
+            if(sudoku[i][col] == el){
                 return true;
             }
         }
         return false;
-    } //ok
+    }   //ok
 
-    public boolean isElementInBox(int row, int col, int el){
-        int row_start, col_start;
+    public boolean isElementInBox(int row, int col, char el){   // 0 =< row < n && 0 =< col < n
+        int sqrtn = (int)Math.sqrt(n);
+        int row_start = row / sqrtn * sqrtn;
+        int col_start = col/ sqrtn * sqrtn;
 
-        if (n == 9) {
-            row_start = row / 3 * 3;
-            col_start = col/ 3 * 3;
-            return isElementInGivenArea(row_start, row_start + 2, col_start, col_start + 2, el);
-        }
-        else {
-            row_start = row / 2 * 2;
-            col_start = col/ 2 * 2;
-            return isElementInGivenArea(row_start, row_start + 1, col_start, col_start + 1, el);
-        }
-    }
-
-    private boolean isElementInGivenArea(int row_start, int row_end, int col_start, int col_end, int el){ // 0=< row_start, row_end < n  0=< col_start, col_end < n
-        for (int i = row_start; i <= row_end; i++) {
-            for (int j = col_start; j <= col_end; j++) {
-                if (A[i][j] == el) { return true; }
+        for (int i = row_start; i <= row_start + sqrtn - 1; i++) {
+            for (int j = col_start; j <= col_start + sqrtn - 1; j++) {
+                if (sudoku[i][j] == el) {
+                    return true;
+                }
             }
         }
         return false;
-    }
+
+    }   //ok
 
     public boolean hasWon(){
         boolean hasZeros = false;
         for (int i = 0; i <= n - 1;i++){
             for (int j = 0; j <= n - 1;j++){
-                if (A[i][j] == 0) {
+                if (sudoku[i][j] == '0') {
                     hasZeros = true;
                     break;
                 }
@@ -182,61 +132,86 @@ public class Logic {
         return !hasZeros;
     }
 
-    public boolean insertElement(int el, int row, int col){ //  0=< row <=n  0=< col <=n
-        if(! (row >= 0 && row < n && col >= 0 && col < n)) {
-            return false;
+    public boolean insertElement(int row, int col, char el){ //  0=< row < n, 0=< col < n, choice = N or choice = L
+        boolean condition;
+        if (numerical){
+            condition = el >= '1' && el <= (char)(n + '0');
         }
-        else if(!(el >= 1 && el <= n)){
-            return false;
+        else {
+            condition = 'A' <= el && el <= 'I';
         }
-        boolean canBePlaced = !isElementInRow(row, el) && !isElementInColumn(col, el) && !isElementInBox(row, col, el);
-        if(canBePlaced){
-            A[row][col] = el;
-            return true;
+
+        if(condition){
+            boolean canBePlaced = !isElementInRow(row, el) && !isElementInColumn(col, el) && !isElementInBox(row, col, el);
+            if(canBePlaced){
+                sudoku[row][col] = el;
+                return true;
+            }
         }
         return false;
     }
 
-    public ArrayList<Integer> availableNumbersForGivenCoordinates(int row, int col){
-        ArrayList<Integer> availableNumbers = new ArrayList<>();
-        for (int i = 1; i < 10; i++) {
-            if (insertElement(i, row, col)){
-                availableNumbers.add(i);
+    public ArrayList<Character> availableElementsForGivenCoordinates(int row, int col){
+        ArrayList<Character> availableElements = new ArrayList<>();
+        for (int i = 1; i <= n; i++) {
+            if (numerical) {
+                if (insertElement(row, col, (char)(i + '0'))){
+                    availableElements.add((char)(i + '0'));
+                }
+            }
+            else {
+                if (insertElement(row, col, intToChar(i))){
+                    availableElements.add(intToChar(i));
+                }
             }
         }
-        return availableNumbers;
+        return availableElements;
     }
 
     public void computerPlays(){
         Random random = new Random();
         int randomRow = random.nextInt(n);
         int randomColumn = random.nextInt(n);
-        int randomElement = random.nextInt(n);
-        while (!insertElement(randomElement, randomRow, randomColumn)){
+        char randomElement;
+        if (numerical) {
+            randomElement = (char)(random.nextInt(n) + 1 + '0');
+        }
+        else {
+            randomElement = intToChar(random.nextInt(n) + 1);
+        }
+        while (!insertElement(randomRow, randomColumn, randomElement) && sudoku[randomRow][randomColumn] != '0'){
             randomRow = random.nextInt(n);
             randomColumn = random.nextInt(n);
-            randomElement = random.nextInt(n);
+            if (numerical) {
+                randomElement = (char) (random.nextInt(n) + '0');
+            }
+            else {
+                randomElement = intToChar(random.nextInt(n));
+            }
         }
     }
 
     public void showArray(){ //ok
-        for (int i = 0; i <= n - 1;i++){
-            for (int j = 0; j <= n - 1;j++){
-                System.out.print(A[i][j] + "  ");
+        for (int i = 0; i < n; i++){
+            for (int j = 0; j < n; j++){
+                System.out.print(sudoku[i][j] + "  ");
             }
             System.out.println('\n');
         }
     }
 
-    public int[] Input(){
-        int []answer = new int[3];
+    public boolean Input(boolean help){
         Scanner scanner = new Scanner(System.in);
-        System.out.print("element: ");
-        answer[0] = scanner.nextInt();
+
         System.out.print("row: ");
-        answer[1] = scanner.nextInt();
+        int row = scanner.nextInt();
         System.out.print("col: ");
-        answer[2] = scanner.nextInt();
-        return answer;
+        int column = scanner.nextInt();
+        if (help) {
+            System.out.println("Available elements: " + availableElementsForGivenCoordinates(row, column));     // help
+        }
+        System.out.print("element: ");
+        char element = scanner.next().charAt(0);
+        return insertElement(row, column, element);
     }
 }
