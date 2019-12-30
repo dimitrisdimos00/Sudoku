@@ -1,4 +1,4 @@
-package GUI.SudokuFrame;
+package GUI.AllOfFrames;
 
 import GUI.AllOfListeners.WinningButtonActionListener;
 

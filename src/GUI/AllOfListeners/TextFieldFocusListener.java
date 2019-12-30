@@ -1,6 +1,6 @@
 package GUI.AllOfListeners;
 
-import GUI.SudokuFrame.SudokuFrame;
+import GUI.AllOfFrames.SudokuFrame;
 import LOGIC.Logic;
 
 import java.awt.event.FocusEvent;

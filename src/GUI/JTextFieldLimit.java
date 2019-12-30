@@ -1,4 +1,4 @@
-package GUI.AllTheMenus;
+package GUI;
 
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;

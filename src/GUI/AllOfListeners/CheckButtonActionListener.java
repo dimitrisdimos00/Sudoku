@@ -1,7 +1,7 @@
 package GUI.AllOfListeners;
 
-import GUI.SudokuFrame.SudokuFrame;
-import GUI.SudokuFrame.WinningFrame;
+import GUI.AllOfFrames.SudokuFrame;
+import GUI.AllOfFrames.WinningFrame;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;

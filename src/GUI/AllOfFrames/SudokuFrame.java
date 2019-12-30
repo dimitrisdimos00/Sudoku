@@ -1,7 +1,7 @@
-package GUI.SudokuFrame;
+package GUI.AllOfFrames;
 
 import GUI.AllOfListeners.CheckButtonActionListener;
-import GUI.AllTheMenus.JTextFieldLimit;
+import GUI.JTextFieldLimit;
 import GUI.AllTheMenus.SecondMenu;
 import GUI.AllOfListeners.TextFieldFocusListener;
 import LOGIC.Logic;

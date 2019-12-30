@@ -1,7 +1,7 @@
 package GUI.AllOfListeners;
 
 import GUI.AllTheMenus.*;
-import GUI.SudokuFrame.SudokuFrame;
+import GUI.AllOfFrames.SudokuFrame;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
