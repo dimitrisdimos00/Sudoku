@@ -119,15 +119,25 @@ public class SudokuFrame extends JFrame{
 
         if (aSecondMenu.getEpilogiOriginalSudoku().isSelected()) {
             this.nameOfGame = "Original Sudoku";
-            aLogic = new Logic(1);
+            if (aSecondMenu.getEpilogiArithmon().isSelected())
+                aLogic = new Logic(1, true);
+            else
+                aLogic = new Logic(1, false);
+
         }
         else if (aSecondMenu.getEpilogiKillerSudoku().isSelected()) {
             this.nameOfGame = "Killer Sudoku";
-            //aLogic = new Logic(2);
+            /*if (aSecondMenu.getEpilogiArithmon().isSelected())
+                aLogic = new Logic(2, true);
+            else
+                aLogic = new Logic(2, false);*/
         }
         else if (aSecondMenu.getEpilogiDuiDoku().isSelected()) {
             this.nameOfGame = "Duidoku";
-            //aLogic = new Logic(3);
+            /*if (aSecondMenu.getEpilogiArithmon().isSelected())
+                aLogic = new Logic(3, true);
+            else
+                aLogic = new Logic(3, false);*/
         }
 
         this.ButtonName = aSecondMenu.isFromGreekMenu() ? "Έλεγχος" : " Check ";
@@ -157,10 +167,10 @@ public class SudokuFrame extends JFrame{
 
         for (int row=0;row<numOfRows;row++) {
             for (int col=0;col<numOfColumns;col++) {
-                if (aLogic.getA()[row][col]==0) {
+                if (aLogic.getSudoku()[row][col]=='0') {
                     theField[row][col].setText("");
                 } else {
-                    theField[row][col].setText(String.valueOf(aLogic.getA()[row][col]));
+                    theField[row][col].setText(String.valueOf(aLogic.getSudoku()[row][col]));
                     theField[row][col].setEditable(false);
                 }
             }
@@ -183,6 +193,7 @@ public class SudokuFrame extends JFrame{
 
             secondPanelTextField = new JTextField("\t\t");
             secondPanelTextField.setEditable(false);
+            secondPanelTextField.setPreferredSize(secondPanelTextField.getPreferredSize());
 
             secondPanel.add(secondPanelLabel);
             secondPanel.add(secondPanelTextField);

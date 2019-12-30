@@ -73,13 +73,13 @@ public class TextFieldFocusListener implements FocusListener {
                 }
 
                 for (int i = 0; i < aSudokuFrame.getNumbers().length; i++) {
-                    if (aLogic.isElementInRow(row, aSudokuFrame.getNumbers()[i])) {
+                    if (aLogic.isElementInRow(row, (char) (aSudokuFrame.getNumbers()[i]+'0'))) {
                         theIntegerMap.replace(aSudokuFrame.getNumbers()[i], true);
                     }
-                    if (aLogic.isElementInBox(row, col, aSudokuFrame.getNumbers()[i])) {
+                    if (aLogic.isElementInBox(row, col, (char) (aSudokuFrame.getNumbers()[i]+'0'))) {
                         theIntegerMap.replace(aSudokuFrame.getNumbers()[i], true);
                     }
-                    if (aLogic.isElementInColumn(col, aSudokuFrame.getNumbers()[i])) {
+                    if (aLogic.isElementInColumn(col, (char) (aSudokuFrame.getNumbers()[i]+'0'))) {
                         theIntegerMap.replace(aSudokuFrame.getNumbers()[i], true);
                     }
                 }
