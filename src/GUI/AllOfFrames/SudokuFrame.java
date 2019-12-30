@@ -1,6 +1,7 @@
 package GUI.AllOfFrames;
 
 import GUI.AllOfListeners.CheckButtonActionListener;
+import GUI.AllOfListeners.DuiDokuMouseActionListener;
 import GUI.JTextFieldLimit;
 import GUI.AllTheMenus.SecondMenu;
 import GUI.AllOfListeners.TextFieldFocusListener;
@@ -134,10 +135,10 @@ public class SudokuFrame extends JFrame{
         }
         else if (aSecondMenu.getEpilogiDuiDoku().isSelected()) {
             this.nameOfGame = "Duidoku";
-            /*if (aSecondMenu.getEpilogiArithmon().isSelected())
+            if (aSecondMenu.getEpilogiArithmon().isSelected())
                 aLogic = new Logic(3, true);
             else
-                aLogic = new Logic(3, false);*/
+                aLogic = new Logic(3, false);
         }
 
         this.ButtonName = aSecondMenu.isFromGreekMenu() ? "Έλεγχος" : " Check ";
@@ -208,6 +209,10 @@ public class SudokuFrame extends JFrame{
 
             add(thirdPanel, BorderLayout.LINE_END);
         }
+
+        if (aSecondMenu.getEpilogiDuiDoku().isSelected()) {
+            forDuidoku();
+        }
 //-------------------------------------------------------------------------------------------------------------------------------
 
         CheckButtonActionListener aCheckButtonActionListener = new CheckButtonActionListener(this);
@@ -221,5 +226,16 @@ public class SudokuFrame extends JFrame{
         setSize(width, height);
         setLocationRelativeTo(null);
         setVisible(true);
+    }
+
+    private void forDuidoku() {
+
+        for (int row=0; row<this.getNumOfRows(); row++) {
+            for (int col=0; col<this.getNumOfColumns(); col++) {
+                this.getTheField()[row][col].setEditable(false);
+                DuiDokuMouseActionListener duiDokuMouseActionListener = new DuiDokuMouseActionListener(this, row, col);
+                this.getTheField()[row][col].addMouseListener(duiDokuMouseActionListener);
+            }
+        }
     }
 }

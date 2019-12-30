@@ -20,28 +20,28 @@ public class MainLogic {
 //                }
 //        }
 
-//        Logic duidoku = new Logic(3, true);     // how to play numerical duidoku with pc
-//        Logic duidoku = new Logic(3, false);    // how to play letter duidoku with pc
-//        boolean playerWon = false, pcWon = false;
-//        while (!playerWon && !pcWon){
-//            duidoku.showArray();
-//            while (!duidoku.Input(help)){
-//                System.out.println("Λάθος στοιχείο!");
-//            }
-//            if (duidoku.hasWon()){
-//                System.out.println("Νίκησε ο παίκτης!");
-//                playerWon = true;
-//            }
-//            if (!playerWon){
-//                duidoku.computerPlays();
-//            }
-//            if (duidoku.hasWon()){
-//                System.out.println("Νίκησε ο υπολογιστής!");
-//                pcWon = true;
-//            }
-//
-//        }
-//
+        //Logic duidoku = new Logic(3, true);     // how to play numerical duidoku with pc
+        Logic duidoku = new Logic(3, false);    // how to play letter duidoku with pc
+        boolean playerWon = false, pcWon = false;
+        while (!playerWon && !pcWon){
+            duidoku.showArray();
+            while (!duidoku.Input(help)){
+                System.out.println("Λάθος στοιχείο!");
+            }
+            if (duidoku.hasWon()){
+                System.out.println("Νίκησε ο παίκτης!");
+                playerWon = true;
+            }
+            if (!playerWon){
+                duidoku.computerPlays();
+            }
+            if (duidoku.hasWon()){
+                System.out.println("Νίκησε ο υπολογιστής!");
+                pcWon = true;
+            }
+
+        }
+
     }
 
 
