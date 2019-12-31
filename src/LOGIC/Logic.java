@@ -185,7 +185,8 @@ public class Logic {
         else {
             randomElement = intToChar(random.nextInt(n) + 1);
         }
-        while (aSudokuFrame.getTheField()[randomRow][randomColumn].getBackground().equals(Color.black)||sudoku[randomRow][randomColumn] != '0' || !insertElement(randomRow, randomColumn, randomElement)){
+        System.out.println("************************************************");
+        while (aSudokuFrame.getTheField()[randomRow][randomColumn].getBackground().equals(Color.black) ||sudoku[randomRow][randomColumn] != '0' || !insertElement(randomRow, randomColumn, randomElement)){
             randomRow = random.nextInt(n);
             randomColumn = random.nextInt(n);
             if (numerical) {
@@ -194,7 +195,9 @@ public class Logic {
             else {
                 randomElement = intToChar(random.nextInt(n));
             }
+            System.out.println("Not finished");
         }
+        System.out.println("************************************************");
     }
 
     public void showArray(){ //ok

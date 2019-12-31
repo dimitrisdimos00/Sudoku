@@ -10,7 +10,6 @@ import java.util.Map;
 
 public class DuiDokuMouseActionListener implements MouseListener {
 
-    private boolean typed = false;
     private int row;
     private int col;
     private SudokuFrame aSudokuFrame;
@@ -39,11 +38,7 @@ public class DuiDokuMouseActionListener implements MouseListener {
 
     @Override
     public void mouseEntered(MouseEvent mouseEvent) {
-        aSudokuFrame.getSecondPanelTextField().setText(String.valueOf(BlackBackground()));
-
-        if (String.valueOf(BlackBackground()).equals("--------") && aSudokuFrame.getTheField()[row][col].getBackground()!=Color.green && aSudokuFrame.getTheField()[row][col].getBackground()!=Color.red)
-            aSudokuFrame.getTheField()[row][col].setBackground(Color.black);
-
+        aSudokuFrame.getSecondPanelTextField().setText(String.valueOf(renameString()));
     }
 
     @Override
@@ -69,7 +64,7 @@ public class DuiDokuMouseActionListener implements MouseListener {
         }
         return true;
     }
-    private String BlackBackground() {
+    private String renameString() {
 
         StringBuilder theString;
 

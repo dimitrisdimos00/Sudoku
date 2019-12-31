@@ -1,11 +1,14 @@
 package GUI.AllOfListeners;
 
+import GUI.AllOfFrames.LosingFrame;
 import GUI.AllOfFrames.SudokuFrame;
 import GUI.AllOfFrames.WinningFrame;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
+import java.util.Map;
 
 public class CheckButtonActionListener implements ActionListener {
 
@@ -19,8 +22,25 @@ public class CheckButtonActionListener implements ActionListener {
     public void actionPerformed(ActionEvent actionEvent) {
         if (aSudokuFrame.getaSecondMenu().getEpilogiOriginalSudoku().isSelected())
             forOriginalSudoku();
-        if (aSudokuFrame.getaSecondMenu().getEpilogiDuiDoku().isSelected())
-            forDuidoku();
+        if (aSudokuFrame.getaSecondMenu().getEpilogiDuiDoku().isSelected()) {
+
+            newBlackTextFields();
+
+            if (DuiDokuIsFull()) {
+                aSudokuFrame.setVisible(false);
+                new WinningFrame(aSudokuFrame);
+            } else {
+
+                forDuidoku();
+
+                newBlackTextFields();
+
+                if (DuiDokuIsFull()) {
+                    aSudokuFrame.setVisible(false);
+                    new LosingFrame(aSudokuFrame);
+                }
+            }
+        }
     }
 
     private void forOriginalSudoku() {
@@ -100,12 +120,6 @@ public class CheckButtonActionListener implements ActionListener {
             }
         }
 
-        if (DuiDokuIsFull()) {
-            aSudokuFrame.setVisible(false);
-            new WinningFrame(aSudokuFrame);
-            return;
-        }
-
         aSudokuFrame.getaLogic().computerPlays();
 
         for (int row=0; row<aSudokuFrame.getNumOfRows(); row++) {
@@ -123,12 +137,6 @@ public class CheckButtonActionListener implements ActionListener {
 
         aSudokuFrame.getaLogic().showArray();
         System.out.println("---------------------------------------------");
-
-        if (DuiDokuIsFull()) {
-            aSudokuFrame.setVisible(false);
-            new WinningFrame(aSudokuFrame);
-            return;
-        }
     }
 
     private boolean DuiDokuIsFull() {
@@ -147,5 +155,94 @@ public class CheckButtonActionListener implements ActionListener {
         }
 
         return full;
+    }
+    private void newBlackTextFields() {
+
+        for (int row=0; row<aSudokuFrame.getNumOfRows(); row++) {
+            for (int col=0; col < aSudokuFrame.getNumOfColumns(); col++) {
+
+                StringBuilder theString;
+
+                HashMap<Integer, Boolean> theIntegerMap = null;
+                HashMap<Character, Boolean> theCharacterMap = null;
+
+                theString = new StringBuilder();
+
+                if (aSudokuFrame.getNumbers() != null) {
+                    theIntegerMap = new HashMap<>();
+                    for (int i = 0; i < aSudokuFrame.getNumbers().length; i++) {
+                        theIntegerMap.put(aSudokuFrame.getNumbers()[i], false);
+                    }
+                } else {
+                    theCharacterMap = new HashMap<>();
+                    for (int i = 0; i < aSudokuFrame.getLetters().length; i++) {
+                        theCharacterMap.put(aSudokuFrame.getLetters()[i], false);
+                    }
+                }
+
+                if (theIntegerMap != null) {
+
+                    for (int i = 0; i < aSudokuFrame.getNumbers().length; i++) {
+                        theIntegerMap.put(aSudokuFrame.getNumbers()[i], false);
+                    }
+
+                    for (int i = 0; i < aSudokuFrame.getNumbers().length; i++) {
+                        if (aSudokuFrame.getaLogic().isElementInRow(row, (char) (aSudokuFrame.getNumbers()[i] + '0'))) {
+                            theIntegerMap.replace(aSudokuFrame.getNumbers()[i], true);
+                        }
+                        if (aSudokuFrame.getaLogic().isElementInBox(row, col, (char) (aSudokuFrame.getNumbers()[i] + '0'))) {
+                            theIntegerMap.replace(aSudokuFrame.getNumbers()[i], true);
+                        }
+                        if (aSudokuFrame.getaLogic().isElementInColumn(col, (char) (aSudokuFrame.getNumbers()[i] + '0'))) {
+                            theIntegerMap.replace(aSudokuFrame.getNumbers()[i], true);
+                        }
+                    }
+
+                    for (Map.Entry<Integer, Boolean> e : theIntegerMap.entrySet()) {
+                        if (!e.getValue()) {
+                            theString.append(e.getKey()).append("/");
+                        }
+                    }
+
+                    if (theString.length() >= 1) {
+                        theString.deleteCharAt(theString.length() - 1);
+                    } else {
+                        theString.append("--------");
+                    }
+                } else {
+
+                    for (int i = 0; i < aSudokuFrame.getLetters().length; i++) {
+                        theCharacterMap.put(aSudokuFrame.getLetters()[i], false);
+                    }
+
+                    for (int i = 0; i < aSudokuFrame.getLetters().length; i++) {
+                        if (aSudokuFrame.getaLogic().isElementInRow(row, aSudokuFrame.getLetters()[i])) {
+                            theCharacterMap.replace(aSudokuFrame.getLetters()[i], true);
+                        }
+                        if (aSudokuFrame.getaLogic().isElementInBox(row, col, aSudokuFrame.getLetters()[i])) {
+                            theCharacterMap.replace(aSudokuFrame.getLetters()[i], true);
+                        }
+                        if (aSudokuFrame.getaLogic().isElementInColumn(col, aSudokuFrame.getLetters()[i])) {
+                            theCharacterMap.replace(aSudokuFrame.getLetters()[i], true);
+                        }
+                    }
+
+                    for (Map.Entry<Character, Boolean> e : theCharacterMap.entrySet()) {
+                        if (!e.getValue()) {
+                            theString.append(e.getKey()).append("/");
+                        }
+                    }
+
+                    if (theString.length() >= 1) {
+                        theString.deleteCharAt(theString.length() - 1);
+                    } else {
+                        theString.append("--------");
+                    }
+                }
+                if (String.valueOf(theString).equals("--------") && aSudokuFrame.getTheField()[row][col].getBackground()!=Color.green && aSudokuFrame.getTheField()[row][col].getBackground()!=Color.red) {
+                    aSudokuFrame.getTheField()[row][col].setBackground(Color.black);
+                }
+            }
+        }
     }
 }
