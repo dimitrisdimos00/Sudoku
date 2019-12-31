@@ -45,7 +45,7 @@ public class CheckButtonActionListener implements ActionListener {
             }
 
             if (DuiDokuIsFull()) {
-                aSudokuFrame.setVisible(true);
+                aSudokuFrame.setVisible(false);
                 new WinningFrame(aSudokuFrame);
             } else if (typed) {
 
@@ -54,7 +54,7 @@ public class CheckButtonActionListener implements ActionListener {
                 newBlackTextFields();
 
                 if (DuiDokuIsFull()) {
-                    aSudokuFrame.setVisible(true);
+                    aSudokuFrame.setVisible(false);
                     new LosingFrame(aSudokuFrame);
                 }
             }
