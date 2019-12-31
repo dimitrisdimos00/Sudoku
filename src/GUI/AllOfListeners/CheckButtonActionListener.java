@@ -88,35 +88,64 @@ public class CheckButtonActionListener implements ActionListener {
         for (int row=0; row<aSudokuFrame.getNumOfRows(); row++) {
             for (int col=0; col<aSudokuFrame.getNumOfColumns(); col++) {
                 if (aSudokuFrame.getTheField()[row][col].isEditable()) {
-                    aSudokuFrame.getaLogic().getSudoku()[row][col] = aSudokuFrame.getTheField()[row][col].getText().charAt(0);
-                    aSudokuFrame.getTheField()[row][col].setEditable(false);
-                    aSudokuFrame.getTheField()[row][col].setBackground(Color.green);
+                    if (aSudokuFrame.getaLogic().insertElement(row, col, aSudokuFrame.getTheField()[row][col].getText().charAt(0))) {
+                        aSudokuFrame.getTheField()[row][col].setEditable(false);
+                        aSudokuFrame.getTheField()[row][col].setBackground(Color.green);
+                    } else {
+                        aSudokuFrame.getTheField()[row][col].setBackground(Color.gray);
+                        return;
+                    }
                     break;
                 }
             }
+        }
+
+        if (DuiDokuIsFull()) {
+            aSudokuFrame.setVisible(false);
+            new WinningFrame(aSudokuFrame);
+            return;
         }
 
         aSudokuFrame.getaLogic().computerPlays();
 
         for (int row=0; row<aSudokuFrame.getNumOfRows(); row++) {
             for (int col=0; col<aSudokuFrame.getNumOfColumns(); col++) {
-                if (aSudokuFrame.getaLogic().getSudoku()[row][col] == '0')
-                    continue;
-                aSudokuFrame.getTheField()[row][col].setText(String.valueOf(aSudokuFrame.getaLogic().getSudoku()[row][col]));
-            }
-        }
 
-        for (int row=0; row<aSudokuFrame.getNumOfRows(); row++) {
-            for (int col=0; col<aSudokuFrame.getNumOfColumns(); col++) {
+                if (aSudokuFrame.getaLogic().getSudoku()[row][col] != '0')
+                    aSudokuFrame.getTheField()[row][col].setText(String.valueOf(aSudokuFrame.getaLogic().getSudoku()[row][col]));
+
                 if (!(aSudokuFrame.getTheField()[row][col].getText().equals("")) && aSudokuFrame.getTheField()[row][col].getBackground() != Color.green)
                     aSudokuFrame.getTheField()[row][col].setBackground(Color.red);
-            }
-        }
 
-        for (int row=0; row<aSudokuFrame.getNumOfRows(); row++) {
-            for (int col=0; col<aSudokuFrame.getNumOfColumns(); col++) {
                 aSudokuFrame.getTheField()[row][col].setEditable(false);
             }
         }
+
+        aSudokuFrame.getaLogic().showArray();
+        System.out.println("---------------------------------------------");
+
+        if (DuiDokuIsFull()) {
+            aSudokuFrame.setVisible(false);
+            new WinningFrame(aSudokuFrame);
+            return;
+        }
+    }
+
+    private boolean DuiDokuIsFull() {
+        boolean full = true;
+
+        for (int row=0; row<aSudokuFrame.getNumOfRows(); row++){
+            for (int col=0; col<aSudokuFrame.getNumOfColumns(); col++) {
+                if (aSudokuFrame.getTheField()[row][col].getBackground()!=Color.black &&
+                    aSudokuFrame.getTheField()[row][col].getBackground()!=Color.red   &&
+                    aSudokuFrame.getTheField()[row][col].getBackground()!=Color.green) {
+
+                    full = false;
+                    break;
+                }
+            }
+        }
+
+        return full;
     }
 }

@@ -1,5 +1,8 @@
 package LOGIC;
 
+import GUI.AllOfFrames.SudokuFrame;
+
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
@@ -9,6 +12,7 @@ public class Logic {
     private char[][] sudoku;
     private int n;
     private boolean numerical;
+    private SudokuFrame aSudokuFrame;
 
     //------------------------------------------------------------------------------------------------
 
@@ -57,7 +61,9 @@ public class Logic {
         }
     }
 
-    public Logic(int sudoku_selection, boolean isNumerical){//sudoku_selection = {1(classic), 2(killer), 3(duidoku)}
+    public Logic(int sudoku_selection, boolean isNumerical, SudokuFrame aSudokuFrame){//sudoku_selection = {1(classic), 2(killer), 3(duidoku)}
+
+        this.aSudokuFrame = aSudokuFrame;
 
         numerical = isNumerical;
 
@@ -179,7 +185,7 @@ public class Logic {
         else {
             randomElement = intToChar(random.nextInt(n) + 1);
         }
-        while (!insertElement(randomRow, randomColumn, randomElement) && sudoku[randomRow][randomColumn] != '0'){
+        while (aSudokuFrame.getTheField()[randomRow][randomColumn].getBackground().equals(Color.black)||sudoku[randomRow][randomColumn] != '0' || !insertElement(randomRow, randomColumn, randomElement)){
             randomRow = random.nextInt(n);
             randomColumn = random.nextInt(n);
             if (numerical) {

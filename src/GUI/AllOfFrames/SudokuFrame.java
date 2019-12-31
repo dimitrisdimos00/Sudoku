@@ -121,9 +121,9 @@ public class SudokuFrame extends JFrame{
         if (aSecondMenu.getEpilogiOriginalSudoku().isSelected()) {
             this.nameOfGame = "Original Sudoku";
             if (aSecondMenu.getEpilogiArithmon().isSelected())
-                aLogic = new Logic(1, true);
+                aLogic = new Logic(1, true, this);
             else
-                aLogic = new Logic(1, false);
+                aLogic = new Logic(1, false, this);
 
         }
         else if (aSecondMenu.getEpilogiKillerSudoku().isSelected()) {
@@ -136,9 +136,9 @@ public class SudokuFrame extends JFrame{
         else if (aSecondMenu.getEpilogiDuiDoku().isSelected()) {
             this.nameOfGame = "Duidoku";
             if (aSecondMenu.getEpilogiArithmon().isSelected())
-                aLogic = new Logic(3, true);
+                aLogic = new Logic(3, true, this);
             else
-                aLogic = new Logic(3, false);
+                aLogic = new Logic(3, false, this);
         }
 
         this.ButtonName = aSecondMenu.isFromGreekMenu() ? "Έλεγχος" : " Check ";
