@@ -38,7 +38,8 @@ public class DuiDokuMouseActionListener implements MouseListener {
 
     @Override
     public void mouseEntered(MouseEvent mouseEvent) {
-        aSudokuFrame.getSecondPanelTextField().setText(String.valueOf(renameString()));
+        if (aSudokuFrame.getaSecondMenu().gethBohtheia().isSelected())
+            aSudokuFrame.getSecondPanelTextField().setText(String.valueOf(renameString()));
     }
 
     @Override

@@ -24,19 +24,37 @@ public class CheckButtonActionListener implements ActionListener {
             forOriginalSudoku();
         if (aSudokuFrame.getaSecondMenu().getEpilogiDuiDoku().isSelected()) {
 
+            boolean typed = false;
+
             newBlackTextFields();
 
+            for (int row=0; row<aSudokuFrame.getNumOfRows(); row++) {
+                for (int col=0; col<aSudokuFrame.getNumOfColumns(); col++) {
+                    if (aSudokuFrame.getTheField()[row][col].isEditable()) {
+                        if ((!(aSudokuFrame.getTheField()[row][col].getText().equals(""))) &&aSudokuFrame.getaLogic().insertElement(row, col, aSudokuFrame.getTheField()[row][col].getText().charAt(0))) {
+                            aSudokuFrame.getTheField()[row][col].setEditable(false);
+                            aSudokuFrame.getTheField()[row][col].setBackground(Color.green);
+                            typed = true;
+                        } else {
+                            aSudokuFrame.getTheField()[row][col].setBackground(Color.gray);
+                            return;
+                        }
+                        break;
+                    }
+                }
+            }
+
             if (DuiDokuIsFull()) {
-                aSudokuFrame.setVisible(false);
+                aSudokuFrame.setVisible(true);
                 new WinningFrame(aSudokuFrame);
-            } else {
+            } else if (typed) {
 
                 forDuidoku();
 
                 newBlackTextFields();
 
                 if (DuiDokuIsFull()) {
-                    aSudokuFrame.setVisible(false);
+                    aSudokuFrame.setVisible(true);
                     new LosingFrame(aSudokuFrame);
                 }
             }
@@ -105,21 +123,6 @@ public class CheckButtonActionListener implements ActionListener {
 
     private void forDuidoku() {
 
-        for (int row=0; row<aSudokuFrame.getNumOfRows(); row++) {
-            for (int col=0; col<aSudokuFrame.getNumOfColumns(); col++) {
-                if (aSudokuFrame.getTheField()[row][col].isEditable()) {
-                    if (aSudokuFrame.getaLogic().insertElement(row, col, aSudokuFrame.getTheField()[row][col].getText().charAt(0))) {
-                        aSudokuFrame.getTheField()[row][col].setEditable(false);
-                        aSudokuFrame.getTheField()[row][col].setBackground(Color.green);
-                    } else {
-                        aSudokuFrame.getTheField()[row][col].setBackground(Color.gray);
-                        return;
-                    }
-                    break;
-                }
-            }
-        }
-
         aSudokuFrame.getaLogic().computerPlays();
 
         for (int row=0; row<aSudokuFrame.getNumOfRows(); row++) {
@@ -134,9 +137,6 @@ public class CheckButtonActionListener implements ActionListener {
                 aSudokuFrame.getTheField()[row][col].setEditable(false);
             }
         }
-
-        aSudokuFrame.getaLogic().showArray();
-        System.out.println("---------------------------------------------");
     }
 
     private boolean DuiDokuIsFull() {

@@ -31,7 +31,7 @@ public class LosingFrame extends JFrame {
     void makeFrame() {
         setTitle(Title);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setResizable(true);
+        setResizable(false);
 
         losingLabel = new JLabel(message);
 

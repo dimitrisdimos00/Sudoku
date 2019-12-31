@@ -30,7 +30,7 @@ public class WinningFrame extends JFrame {
     void makeFrame() {
         setTitle(Title);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setResizable(true);
+        setResizable(false);
 
         winningLabel = new JLabel(message);
 

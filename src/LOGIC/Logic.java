@@ -185,19 +185,17 @@ public class Logic {
         else {
             randomElement = intToChar(random.nextInt(n) + 1);
         }
-        System.out.println("************************************************");
+
         while (aSudokuFrame.getTheField()[randomRow][randomColumn].getBackground().equals(Color.black) ||sudoku[randomRow][randomColumn] != '0' || !insertElement(randomRow, randomColumn, randomElement)){
             randomRow = random.nextInt(n);
             randomColumn = random.nextInt(n);
             if (numerical) {
-                randomElement = (char) (random.nextInt(n) + '0');
+                randomElement = (char) (random.nextInt(n+1) + '0');
             }
             else {
-                randomElement = intToChar(random.nextInt(n));
+                randomElement = intToChar(random.nextInt(n+1));
             }
-            System.out.println("Not finished");
         }
-        System.out.println("************************************************");
     }
 
     public void showArray(){ //ok
