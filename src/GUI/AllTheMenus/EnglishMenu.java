@@ -1,8 +1,11 @@
 package GUI.AllTheMenus;
 
+import LOGIC.FILE_MANAGEMENT.Entry;
+
 public class EnglishMenu extends SecondMenu {
 
-    public EnglishMenu() {
+    public EnglishMenu(Entry anEntry) {
+        super(anEntry);
         this.getStrings()[0] = "Welcome!";
         this.getStrings()[1] = "Original Sudoku";
         this.getStrings()[2] = "Killer Sudoku";

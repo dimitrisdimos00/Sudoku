@@ -2,10 +2,14 @@ package GUI.AllOfFrames;
 
 import GUI.AllOfListeners.CheckButtonActionListener;
 import GUI.AllOfListeners.DuiDokuMouseActionListener;
+import GUI.AllTheMenus.MainMenu;
 import GUI.JTextFieldLimit;
 import GUI.AllTheMenus.SecondMenu;
 import GUI.AllOfListeners.TextFieldFocusListener;
+import LOGIC.Duidoku;
+import LOGIC.KillerSudoku;
 import LOGIC.Logic;
+import LOGIC.Sudoku;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
@@ -21,6 +25,9 @@ public class SudokuFrame extends JFrame{
     private SecondMenu aSecondMenu;
 
     private Logic aLogic;
+    private Sudoku aSudoku;
+    private KillerSudoku aKillerSudoku;
+    private Duidoku aDuidoku;
 
     private String nameOfGame;
     private String borderName;
@@ -51,11 +58,18 @@ public class SudokuFrame extends JFrame{
         this.aSecondMenu = aSecondMenu;
     }
 
-    public Logic getaLogic() {
-        return aLogic;
+    public Sudoku getaSudoku() {
+        return aSudoku;
     }
-    public void setaLogic(Logic aLogic) {
-        this.aLogic = aLogic;
+    public void setaSudoku(Sudoku aSudoku) {
+        this.aSudoku = aSudoku;
+    }
+
+    public KillerSudoku getaKillerSudoku() {
+        return aKillerSudoku;
+    }
+    public void setaKillerSudoku(KillerSudoku aKillerSudoku) {
+        this.aKillerSudoku = aKillerSudoku;
     }
 
     public JTextField[][] getTheField() {
@@ -76,6 +90,13 @@ public class SudokuFrame extends JFrame{
     }
     public void setNumOfColumns(int numOfColumns) {
         this.numOfColumns = numOfColumns;
+    }
+
+    public Logic getaLogic() {
+        return aLogic;
+    }
+    public void setaLogic(Logic aLogic) {
+        this.aLogic = aLogic;
     }
 
     public int[] getNumbers() {
@@ -105,6 +126,13 @@ public class SudokuFrame extends JFrame{
         this.aTextFieldFocusListener = aTextFieldFocusListener;
     }
 
+    public Duidoku getaDuidoku() {
+        return aDuidoku;
+    }
+    public void setaDuidoku(Duidoku aDuidoku) {
+        this.aDuidoku = aDuidoku;
+    }
+
     //--------------------------------------------------------------------------------------------------
 
     public SudokuFrame(SecondMenu aSecondMenu, int numOfRows, int numOfColumns) {
@@ -121,24 +149,26 @@ public class SudokuFrame extends JFrame{
         if (aSecondMenu.getEpilogiOriginalSudoku().isSelected()) {
             this.nameOfGame = "Original Sudoku";
             if (aSecondMenu.getEpilogiArithmon().isSelected())
-                aLogic = new Logic(1, true, this);
+                aSudoku = new Sudoku(true, aSecondMenu.getTheEntry().getUnsolvedClassicPuzzles());
             else
-                aLogic = new Logic(1, false, this);
-
+                aSudoku = new Sudoku(false, aSecondMenu.getTheEntry().getUnsolvedClassicPuzzles());
+            aLogic = aSudoku;
         }
         else if (aSecondMenu.getEpilogiKillerSudoku().isSelected()) {
             this.nameOfGame = "Killer Sudoku";
-            /*if (aSecondMenu.getEpilogiArithmon().isSelected())
-                aLogic = new Logic(2, true);
+            if (aSecondMenu.getEpilogiArithmon().isSelected())
+                aKillerSudoku = new KillerSudoku(true, aSecondMenu.getTheEntry().getUnsolvedKillerPuzzles());
             else
-                aLogic = new Logic(2, false);*/
+                aKillerSudoku = new KillerSudoku(false, aSecondMenu.getTheEntry().getUnsolvedKillerPuzzles());
+            aLogic = aKillerSudoku;
         }
         else if (aSecondMenu.getEpilogiDuiDoku().isSelected()) {
             this.nameOfGame = "Duidoku";
             if (aSecondMenu.getEpilogiArithmon().isSelected())
-                aLogic = new Logic(3, true, this);
+                aDuidoku = new Duidoku(true, this);
             else
-                aLogic = new Logic(3, false, this);
+                aDuidoku = new Duidoku(false, this);
+            aLogic = aDuidoku;
         }
 
         this.ButtonName = aSecondMenu.isFromGreekMenu() ? "Έλεγχος" : " Check ";

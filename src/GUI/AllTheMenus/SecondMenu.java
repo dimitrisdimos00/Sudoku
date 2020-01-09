@@ -1,6 +1,7 @@
 package GUI.AllTheMenus;
 
 import GUI.AllOfListeners.*;
+import LOGIC.FILE_MANAGEMENT.Entry;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
@@ -8,6 +9,7 @@ import java.awt.*;
 
 public class SecondMenu extends JFrame{
 
+    private Entry theEntry;
     private boolean fromGreekMenu;
     private String[] strings;
 
@@ -67,9 +69,16 @@ public class SecondMenu extends JFrame{
         this.fromGreekMenu = fromGreekMenu;
     }
 
-    //--------------------------------------------------------------------------------------------------
+    public Entry getTheEntry() {
+        return theEntry;
+    }
+    public void setTheEntry(Entry theEntry) {
+        this.theEntry = theEntry;
+    }
 
-    SecondMenu() {
+    //--------------------------------------------------------------------------------------------------
+    SecondMenu(Entry anEntry) {
+        this.theEntry = anEntry;
         fromGreekMenu = this instanceof GreekMenu? true : false;
         strings = new String[11];
     }

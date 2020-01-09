@@ -31,7 +31,7 @@ public class CheckButtonActionListener implements ActionListener {
             for (int row=0; row<aSudokuFrame.getNumOfRows(); row++) {
                 for (int col=0; col<aSudokuFrame.getNumOfColumns(); col++) {
                     if (aSudokuFrame.getTheField()[row][col].isEditable()) {
-                        if ((!(aSudokuFrame.getTheField()[row][col].getText().equals(""))) &&aSudokuFrame.getaLogic().insertElement(row, col, aSudokuFrame.getTheField()[row][col].getText().charAt(0))) {
+                        if ((!(aSudokuFrame.getTheField()[row][col].getText().equals(""))) && aSudokuFrame.getaLogic().insertElement(row, col, aSudokuFrame.getTheField()[row][col].getText().charAt(0))) {
                             aSudokuFrame.getTheField()[row][col].setEditable(false);
                             aSudokuFrame.getTheField()[row][col].setBackground(Color.green);
                             typed = true;
@@ -123,7 +123,7 @@ public class CheckButtonActionListener implements ActionListener {
 
     private void forDuidoku() {
 
-        aSudokuFrame.getaLogic().computerPlays();
+        aSudokuFrame.getaDuidoku().computerPlays();
 
         for (int row=0; row<aSudokuFrame.getNumOfRows(); row++) {
             for (int col=0; col<aSudokuFrame.getNumOfColumns(); col++) {

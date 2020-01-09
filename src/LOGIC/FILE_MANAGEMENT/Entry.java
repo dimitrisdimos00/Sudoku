@@ -5,15 +5,18 @@ import java.util.ArrayList;
 
 public class Entry implements Serializable {
     private String name;
-    private ArrayList<Integer> unsolvedPuzzles;
+    private ArrayList<Integer> unsolvedClassicPuzzles;
+    private ArrayList<Integer> unsolvedKillerPuzzles;
     private int wins;
     private int losses;
     //constructor
     public Entry(String name){
         this.name = name;
-        unsolvedPuzzles = new ArrayList<>();
+        unsolvedClassicPuzzles = new ArrayList<>();
+        unsolvedKillerPuzzles = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
-            unsolvedPuzzles.add(i);
+            unsolvedClassicPuzzles.add(i);
+            unsolvedKillerPuzzles.add(i);
         }
         wins = losses = 0;
     }
@@ -22,8 +25,12 @@ public class Entry implements Serializable {
         this.name = name;
     }
 
-    public void setUnsolvedPuzzles(ArrayList<Integer> unsolvedPuzzles) {
-        this.unsolvedPuzzles = unsolvedPuzzles;
+    public void setUnsolvedClassicPuzzles(ArrayList<Integer> unsolvedClassicPuzzles) {
+        this.unsolvedClassicPuzzles = unsolvedClassicPuzzles;
+    }
+
+    public void setUnsolvedKillerPuzzles(ArrayList<Integer> unsolvedKillerPuzzles) {
+        this.unsolvedKillerPuzzles = unsolvedKillerPuzzles;
     }
 
     public void setWins(int wins) {
@@ -38,8 +45,12 @@ public class Entry implements Serializable {
         return name;
     }
 
-    public ArrayList<Integer> getUnsolvedPuzzles() {
-        return unsolvedPuzzles;
+    public ArrayList<Integer> getUnsolvedClassicPuzzles() {
+        return unsolvedClassicPuzzles;
+    }
+
+    public ArrayList<Integer> getUnsolvedKillerPuzzles() {
+        return unsolvedKillerPuzzles;
     }
 
     public int getWins() {
@@ -51,11 +62,15 @@ public class Entry implements Serializable {
     }
     //------------------------------------------
 
-    public void puzzleSolved(int solvedPuzzle) {
-        unsolvedPuzzles.remove(solvedPuzzle);
+    public void classicPuzzleSolved(int solvedPuzzle) {
+        unsolvedClassicPuzzles.remove(solvedPuzzle);
+    }
+
+    public void killerPuzzleSolved(int solvedPuzzle) {
+        unsolvedKillerPuzzles.remove(solvedPuzzle);
     }
 
     public String toString() {
-        return name + "-" + unsolvedPuzzles + "-" + wins + "-" + losses;
+        return name + "-" + unsolvedClassicPuzzles + "-" + unsolvedKillerPuzzles + "-" + wins + "-" + losses;
     }
 }
