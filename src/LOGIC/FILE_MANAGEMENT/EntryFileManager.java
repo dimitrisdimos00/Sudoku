@@ -8,7 +8,7 @@ public class EntryFileManager {
     public EntryFileManager(){ }
 
     public void addEntry(Entry anEntry) {
-        try (ObjectOutputStream outputStream = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(savesFile, true)))) {
+        try (ObjectOutputStream outputStream = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(savesFile)))) {
             outputStream.writeObject(anEntry);
         } catch (IOException e) {
             e.printStackTrace();
@@ -17,7 +17,13 @@ public class EntryFileManager {
 
     public ArrayList<Entry> getAllEntries() {
         ArrayList<Entry> entries = new ArrayList<>();
-        try (ObjectInputStream inputStream = new ObjectInputStream((new BufferedInputStream(new FileInputStream(savesFile))))){
+        FileInputStream fin = null;
+        try {
+            fin = new FileInputStream(savesFile);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        try (ObjectInputStream inputStream = new ObjectInputStream((new BufferedInputStream(fin)))){
             boolean eof = false;
             while (!eof) {
                 try {
@@ -45,5 +51,10 @@ public class EntryFileManager {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void emptyEntries() {
+        ArrayList<Entry> noEntries = new ArrayList<>();
+        updateEntries(noEntries);
     }
 }

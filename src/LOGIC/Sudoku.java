@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class Sudoku extends Logic{
     public Sudoku (boolean isNumerical, ArrayList<Integer> wantedPuzzles){
-        super(1,isNumerical);
+        super(1, isNumerical);
         ReadFile readFile = new ReadFile(1);
         try {
             setSudoku(getArrayConverter().arrayToCharMatrix(readFile.getRandomPuzzle(wantedPuzzles), isNumerical));

@@ -86,8 +86,8 @@ public class Logic {
 
     public boolean hasWon(){
         boolean hasZeros = false;
-        for (int i = 0; i <= n - 1;i++){
-            for (int j = 0; j <= n - 1;j++){
+        for (int i = 0; i < n; i++){
+            for (int j = 0; j < n; j++){
                 if (sudoku[i][j] == '0') {
                     hasZeros = true;
                     break;
