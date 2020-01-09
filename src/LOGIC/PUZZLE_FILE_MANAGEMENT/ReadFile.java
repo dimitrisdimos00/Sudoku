@@ -1,15 +1,15 @@
-package LOGIC;
+package LOGIC.PUZZLE_FILE_MANAGEMENT;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
-class ReadFile {
+public class ReadFile {
     private File puzzlesFile;
     private static int n = 9;
     private static int number_of_puzzles = 10;
+    private int randomPuzzleIndex;
 
 //-----------------------------------------------------------
 
@@ -17,25 +17,28 @@ class ReadFile {
         this.puzzlesFile = puzzlesFile;
     }
 
+    public void setRandomPuzzle(int randomPuzzleIndex) { this.randomPuzzleIndex = randomPuzzleIndex; }
+
     public File getPuzzlesFile() {
         return puzzlesFile;
     }
 
-//-----------------------------------------------------------
+    public int getRandomPuzzleIndex() { return randomPuzzleIndex; }
+
+    //-----------------------------------------------------------
 
     public ReadFile (int selection){
         if (selection == 1){
-            setPuzzlesFile(new File("src/LOGIC/classicpuzzles"));
+            setPuzzlesFile(new File("src/LOGIC/PUZZLE_FILE_MANAGEMENT/classicpuzzles"));
         }
         else {
-            setPuzzlesFile(new File("src/LOGIC/killerpuzzles"));
+            setPuzzlesFile(new File("src/LOGIC/PUZZLE_FILE_MANAGEMENT/killerpuzzles"));
         }
     }
 
-    public ArrayList<int[]> readPuzzlesFromFile(){
+    private ArrayList<int[]> readPuzzlesFromFile() throws FileNotFoundException {
         ArrayList<int[]> arrayPuzzles = new ArrayList<>();
-        try{
-            Scanner scanner = new Scanner(puzzlesFile);
+        try (Scanner scanner = new Scanner(new BufferedReader(new FileReader(puzzlesFile)))) {
             for (int i = 0; i < number_of_puzzles; i++) {
                 int[] elements = new int[n * n];
 
@@ -52,26 +55,11 @@ class ReadFile {
 
             return arrayPuzzles;
         }
-        catch (FileNotFoundException e){
-            System.out.println( "Δεν βρέθηκε ο φάκελος!");
-            return null;
-        }
     }
 
-    public int[][] getRandomPuzzle(){
+    public int[] getRandomPuzzle(ArrayList<Integer> wantedPuzzles) throws FileNotFoundException {
         Random random = new Random();
-        return arrayToMatrix(readPuzzlesFromFile().get(random.nextInt(number_of_puzzles)));
-    }
-
-    private int[][] arrayToMatrix(int[] array) {
-        int[][] matrix = new int[n][n];
-        int counter = 0;
-        for (int j = 0; j < n; j++) {
-            for (int k = 0; k < n; k++) {
-                matrix[j][k] = array[counter];
-                counter++;
-            }
-        }
-        return matrix;
+        randomPuzzleIndex = random.nextInt(wantedPuzzles.size());
+        return readPuzzlesFromFile().get(wantedPuzzles.get(randomPuzzleIndex));
     }
 }

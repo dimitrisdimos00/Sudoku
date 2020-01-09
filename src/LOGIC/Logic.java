@@ -8,87 +8,54 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Logic {
-    private int[][] A;
-    private char[][] sudoku;
     private int n;
-    private boolean numerical;
+    private char[][] sudoku;
+    private boolean isNumerical;
+    private ArrayConverter arrayConverter;
     private SudokuFrame aSudokuFrame;
 
     //------------------------------------------------------------------------------------------------
-
-    public int[][] getA() {
-        return A;
+    public int getN() {
+        return n;
     }
     public char[][] getSudoku() {
         return sudoku;
     }
-    public int getN() {
-        return n;
-    }
     public boolean isNumerical() {
-        return numerical;
+        return isNumerical;
+    }
+    public ArrayConverter getArrayConverter() { return arrayConverter; }
+    public SudokuFrame getaSudokuFrame() {
+        return aSudokuFrame;
     }
 
-    public void setA(int[][] a) {
-        A = a;
+
+    public void setN(int n) {
+        this.n = n;
     }
     public void setSudoku(char[][] sudoku) {
         this.sudoku = sudoku;
     }
-    public void setN(int n) {
-        this.n = n;
+    public void setNumerical(boolean numerical) { isNumerical = numerical; }
+    public void setArrayConverter(ArrayConverter arrayConverter) { this.arrayConverter = arrayConverter; }
+    public void setaSudokuFrame(SudokuFrame aSudokuFrame) {
+        this.aSudokuFrame = aSudokuFrame;
     }
-    public void setNumerical(boolean numerical) {
-        this.numerical = numerical;
-    }
-
     //------------------------------------------------------------------------------------------------
 
-    private void initializeSudoku(int selection){
-        sudoku = new char[n][n];
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                if (selection == 1 && numerical) {
-                    sudoku[i][j] = (char)(A[i][j] + '0');
-                }
-                else if (selection == 1) {
-                    sudoku[i][j] = intToChar(A[i][j]);
-                }
-                else {
-                    sudoku[i][j] = '0';
-                }
-            }
-        }
+    public Logic() {
     }
 
-    public Logic(int sudoku_selection, boolean isNumerical, SudokuFrame aSudokuFrame){//sudoku_selection = {1(classic), 2(killer), 3(duidoku)}
-
+    public Logic(int sudoku_selection, boolean isNumerical, SudokuFrame aSudokuFrame){ //sudoku_selection = {1(classic), 2(killer), 3(duidoku)}
+        this.isNumerical = isNumerical;
         this.aSudokuFrame = aSudokuFrame;
-
-        numerical = isNumerical;
-
         if (sudoku_selection == 1 || sudoku_selection == 2){
             n = 9;
-            ReadFile readFile = new ReadFile(sudoku_selection);
-            A = readFile.getRandomPuzzle();
         }
         else{
             n = 4;
-            A = new int[n][n];
         }
-        initializeSudoku(sudoku_selection);
-    }
-    private char intToChar(int i){
-        if (i == 0) { return '0'; }
-        else if (i == 1){ return 'A'; }
-        else if (i == 2){ return 'B'; }
-        else if (i == 3){ return 'C'; }
-        else if (i == 4){ return 'D'; }
-        else if (i == 5){ return 'E'; }
-        else if (i == 6){ return 'F'; }
-        else if (i == 7){ return 'G'; }
-        else if (i == 8){ return 'H'; }
-        return 'I';
+        arrayConverter = new ArrayConverter(n);
     }
 
     public boolean isElementInRow(int row, char el){        // 0 =< row < n
@@ -140,7 +107,7 @@ public class Logic {
 
     public boolean insertElement(int row, int col, char el){ //  0=< row < n, 0=< col < n, choice = N or choice = L
         boolean condition;
-        if (numerical){
+        if (isNumerical){
             condition = el >= '1' && el <= (char)(n + '0');
         }
         else {
@@ -159,66 +126,20 @@ public class Logic {
 
     public ArrayList<Character> availableElementsForGivenCoordinates(int row, int col){
         ArrayList<Character> availableElements = new ArrayList<>();
+        ArrayConverter arrayConverter = new ArrayConverter(n);
+
         for (int i = 1; i <= n; i++) {
-            if (numerical) {
+            if (isNumerical) {
                 if (insertElement(row, col, (char)(i + '0'))){
                     availableElements.add((char)(i + '0'));
                 }
             }
             else {
-                if (insertElement(row, col, intToChar(i))){
-                    availableElements.add(intToChar(i));
+                if (insertElement(row, col, arrayConverter.intToChar(i))){
+                    availableElements.add(arrayConverter.intToChar(i));
                 }
             }
         }
         return availableElements;
-    }
-
-    public void computerPlays(){
-        Random random = new Random();
-        int randomRow = random.nextInt(n);
-        int randomColumn = random.nextInt(n);
-        char randomElement;
-        if (numerical) {
-            randomElement = (char)(random.nextInt(n) + 1 + '0');
-        }
-        else {
-            randomElement = intToChar(random.nextInt(n) + 1);
-        }
-
-        while (aSudokuFrame.getTheField()[randomRow][randomColumn].getBackground().equals(Color.black) ||sudoku[randomRow][randomColumn] != '0' || !insertElement(randomRow, randomColumn, randomElement)){
-            randomRow = random.nextInt(n);
-            randomColumn = random.nextInt(n);
-            if (numerical) {
-                randomElement = (char) (random.nextInt(n+1) + '0');
-            }
-            else {
-                randomElement = intToChar(random.nextInt(n+1));
-            }
-        }
-    }
-
-    public void showArray(){ //ok
-        for (int i = 0; i < n; i++){
-            for (int j = 0; j < n; j++){
-                System.out.print(sudoku[i][j] + "  ");
-            }
-            System.out.println('\n');
-        }
-    }
-
-    public boolean Input(boolean help){
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.print("row: ");
-        int row = scanner.nextInt();
-        System.out.print("col: ");
-        int column = scanner.nextInt();
-        if (help) {
-            System.out.println("Available elements: " + availableElementsForGivenCoordinates(row, column));     // help
-        }
-        System.out.print("element: ");
-        char element = scanner.next().charAt(0);
-        return insertElement(row, column, element);
     }
 }
