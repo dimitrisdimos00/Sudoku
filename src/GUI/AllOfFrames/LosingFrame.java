@@ -1,7 +1,7 @@
 package GUI.AllOfFrames;
 
 import GUI.AllOfListeners.LosingButtonActionListener;
-import GUI.AllOfListeners.WinningButtonActionListener;
+import LOGIC.FILE_MANAGEMENT.Entry;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,17 +13,22 @@ public class LosingFrame extends JFrame {
     private String Title;
     private String message;
     private String ButtonName;
+    private String PanelName;
 
     private JLabel losingLabel;
     private JButton losingButton;
+    private Entry anEntry;
 
     public LosingFrame(SudokuFrame aSudokuFrame) {
 
         this.aSudokuFrame = aSudokuFrame;
 
         Title = aSudokuFrame.getaSecondMenu().isFromGreekMenu() ? "Μόλις Έχασες" : "You Lost" ;
-        message = aSudokuFrame.getaSecondMenu().isFromGreekMenu() ? "Δυστηχώς μόλις έχασες!" : "Unfortunately You Lost!" ;
+        message = aSudokuFrame.getaSecondMenu().isFromGreekMenu() ? "Δυστυχώς μόλις έχασες!" : "Unfortunately You Lost!" ;
         ButtonName = aSudokuFrame.getaSecondMenu().isFromGreekMenu() ? "Πάτα με για να κλέισει το παιχνίδι!" : "Click me to close the application" ;
+        PanelName = aSudokuFrame.getaSecondMenu().isFromGreekMenu() ? "Ψευδώνυμο" : "Νίκες / Ήττες" ;
+
+        this.anEntry = aSudokuFrame.getaSecondMenu().getTheEntry();
 
         this.makeFrame();
     }
@@ -31,7 +36,7 @@ public class LosingFrame extends JFrame {
     void makeFrame() {
         setTitle(Title);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setResizable(false);
+        setResizable(true);
 
         losingLabel = new JLabel(message);
 
@@ -41,11 +46,21 @@ public class LosingFrame extends JFrame {
 
         FlowLayout layout = new FlowLayout();
 
-        setLayout(layout);
-        add(losingLabel);
-        add(losingButton);
+        JPanel firstPanel = new JPanel(new GridLayout(1,2));
+        firstPanel.setBorder(BorderFactory.createTitledBorder(PanelName));
 
-        setSize(300,100);
+        JLabel UserNameLabel = new JLabel(anEntry.getName());
+        JLabel StatsLabel = new JLabel(anEntry.getWins() + "/" + anEntry.getLosses());
+
+        firstPanel.add(UserNameLabel);
+        firstPanel.add(StatsLabel);
+
+        setLayout(layout);
+        add(losingLabel, BorderLayout.PAGE_START);
+        add(firstPanel, BorderLayout.CENTER);
+        add(losingButton, BorderLayout.PAGE_END);
+
+        setSize(280,140);
         setLocationRelativeTo(null);
         setVisible(true);
     }

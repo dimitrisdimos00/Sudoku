@@ -45,6 +45,7 @@ public class CheckButtonActionListener implements ActionListener {
             }
 
             if (DuiDokuIsFull()) {
+                aSudokuFrame.getaSecondMenu().getTheEntry().setWins(aSudokuFrame.getaSecondMenu().getTheEntry().getWins()+1);
                 aSudokuFrame.setVisible(false);
                 new WinningFrame(aSudokuFrame);
             } else if (typed) {
@@ -54,6 +55,7 @@ public class CheckButtonActionListener implements ActionListener {
                 newBlackTextFields();
 
                 if (DuiDokuIsFull()) {
+                    aSudokuFrame.getaSecondMenu().getTheEntry().setLosses(aSudokuFrame.getaSecondMenu().getTheEntry().getLosses()+1);
                     aSudokuFrame.setVisible(false);
                     new LosingFrame(aSudokuFrame);
                 }
