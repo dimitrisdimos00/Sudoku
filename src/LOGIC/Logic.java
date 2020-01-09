@@ -12,7 +12,6 @@ public class Logic {
     private char[][] sudoku;
     private boolean isNumerical;
     private ArrayConverter arrayConverter;
-    private SudokuFrame aSudokuFrame;
 
     //------------------------------------------------------------------------------------------------
     public int getN() {
@@ -25,9 +24,6 @@ public class Logic {
         return isNumerical;
     }
     public ArrayConverter getArrayConverter() { return arrayConverter; }
-    public SudokuFrame getaSudokuFrame() {
-        return aSudokuFrame;
-    }
 
 
     public void setN(int n) {
@@ -38,17 +34,13 @@ public class Logic {
     }
     public void setNumerical(boolean numerical) { isNumerical = numerical; }
     public void setArrayConverter(ArrayConverter arrayConverter) { this.arrayConverter = arrayConverter; }
-    public void setaSudokuFrame(SudokuFrame aSudokuFrame) {
-        this.aSudokuFrame = aSudokuFrame;
-    }
     //------------------------------------------------------------------------------------------------
 
     public Logic() {
     }
 
-    public Logic(int sudoku_selection, boolean isNumerical, SudokuFrame aSudokuFrame){ //sudoku_selection = {1(classic), 2(killer), 3(duidoku)}
+    public Logic(int sudoku_selection, boolean isNumerical){ //sudoku_selection = {1(classic), 2(killer), 3(duidoku)}
         this.isNumerical = isNumerical;
-        this.aSudokuFrame = aSudokuFrame;
         if (sudoku_selection == 1 || sudoku_selection == 2){
             n = 9;
         }

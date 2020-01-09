@@ -7,8 +7,8 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 public class Sudoku extends Logic{
-    public Sudoku (boolean isNumerical, SudokuFrame sudokuFrame, ArrayList<Integer> wantedPuzzles){
-        super(1,isNumerical, sudokuFrame);
+    public Sudoku (boolean isNumerical, ArrayList<Integer> wantedPuzzles){
+        super(1,isNumerical);
         ReadFile readFile = new ReadFile(1);
         try {
             setSudoku(getArrayConverter().arrayToCharMatrix(readFile.getRandomPuzzle(wantedPuzzles), isNumerical));

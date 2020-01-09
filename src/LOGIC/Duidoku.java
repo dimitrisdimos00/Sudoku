@@ -6,10 +6,24 @@ import java.awt.*;
 import java.util.Random;
 
 public class Duidoku extends Logic{
-    private ArrayConverter arrayConverter = new ArrayConverter(getN());
+    private SudokuFrame sudokuFrame;
+
+    //-------------------------------------
+
+    public SudokuFrame getSudokuFrame() {
+        return sudokuFrame;
+    }
+
+    public void setSudokuFrame(SudokuFrame sudokuFrame) {
+        this.sudokuFrame = sudokuFrame;
+    }
+
+    //--------------------------------------
+
     public Duidoku(boolean isNumerical, SudokuFrame sudokuFrame){
-        super(3, isNumerical, sudokuFrame);
-        setSudoku(arrayConverter.matrixToZeros());
+        super(3, isNumerical);
+        setSudoku(getArrayConverter().matrixToZeros());
+        this.sudokuFrame = sudokuFrame;
     }
 
     public void computerPlays(){
@@ -21,17 +35,17 @@ public class Duidoku extends Logic{
             randomElement = (char)(random.nextInt(getN()) + 1 + '0');
         }
         else {
-            randomElement = arrayConverter.intToChar(random.nextInt(getN()) + 1);
+            randomElement = getArrayConverter().intToChar(random.nextInt(getN()) + 1);
         }
 
-        while (getaSudokuFrame().getTheField()[randomRow][randomColumn].getBackground().equals(Color.black) ||getSudoku()[randomRow][randomColumn] != '0' || !insertElement(randomRow, randomColumn, randomElement)){
+        while (getSudokuFrame().getTheField()[randomRow][randomColumn].getBackground().equals(Color.black) ||getSudoku()[randomRow][randomColumn] != '0' || !insertElement(randomRow, randomColumn, randomElement)){
             randomRow = random.nextInt(getN());
             randomColumn = random.nextInt(getN());
             if (isNumerical()) {
                 randomElement = (char) (random.nextInt(getN() + 1) + '0');
             }
             else {
-                randomElement = arrayConverter.intToChar(random.nextInt(getN() + 1));
+                randomElement = getArrayConverter().intToChar(random.nextInt(getN() + 1));
             }
         }
     }

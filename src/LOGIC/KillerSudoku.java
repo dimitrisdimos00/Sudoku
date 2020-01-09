@@ -10,8 +10,8 @@ import java.util.HashSet;
 public class KillerSudoku extends Logic {
     private int[][] sums;
 
-    public KillerSudoku(boolean isNumerical, SudokuFrame sudokuFrame, ArrayList<Integer> wantedPuzzles){
-        super(2, isNumerical, sudokuFrame);
+    public KillerSudoku(boolean isNumerical, ArrayList<Integer> wantedPuzzles){
+        super(2, isNumerical);
         ReadFile readFile = new ReadFile(2);
         ArrayConverter arrayConverter = new ArrayConverter(getN());
         try {
