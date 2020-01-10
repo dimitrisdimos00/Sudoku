@@ -123,6 +123,11 @@ public class CheckButtonActionListener implements ActionListener {
         }
 
         if (aSudokuFrame.getaLogic().hasWon()) {
+            EntryFileManager entryFileManager = new EntryFileManager();
+            int puzzleIndex = aSudokuFrame.getaSudoku().getRandomPuzzleIndex();
+            aSudokuFrame.getaSecondMenu().getTheEntry().classicPuzzleSolved(puzzleIndex);
+            entryFileManager.updateEntry(aSudokuFrame.getaSecondMenu().getTheEntry());
+
             aSudokuFrame.setVisible(false);
             new WinningFrame(aSudokuFrame);
         }
