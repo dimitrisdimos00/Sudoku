@@ -8,7 +8,9 @@ import javax.swing.border.TitledBorder;
 import java.awt.*;
 
 /**
- * Αυτή η κλάση αντιπροσωπεύει το δεύτερο παράθυρο που θα ανοίξει στον χρήστη.
+ * Αυτή η κλάση αντιπροσωπεύει το δεύτερο παράθυρο που θα ανοίξει στον χρήστη. Στο παράθυρο αυτό ο χρήστης μπορεί να
+ * επιλέξει ποιά παραλλαγή Sudoku θέλει να παίξει, εάν θέλει να παίξει με γράμματα ή αριθμούς καθώς και εάν
+ * χρειάζεται βοήθεια ή όχι. Τέλος με ένα κουμπί όταν πατηθεί, ξεκινάει το παιχνίδι.
  *
  * @author Γιώργος Τσιφούτης
  */
@@ -82,10 +84,17 @@ public class SecondMenu extends JFrame{
         this.theEntry = theEntry;
     }
 
+    public JButton getStartButton() {
+        return startButton;
+    }
+    public void setStartButton(JButton startButton) {
+        this.startButton = startButton;
+    }
+
     //--------------------------------------------------------------------------------------------------
     SecondMenu(Entry anEntry) {
         this.theEntry = anEntry;
-        fromGreekMenu = this instanceof GreekMenu? true : false;
+        fromGreekMenu = this instanceof GreekMenu;
         strings = new String[11];
     }
 
@@ -99,10 +108,18 @@ public class SecondMenu extends JFrame{
      *
      *  Για το 1ο μερος:
      *  Μέσα στο firstPanel θα δίνεται η δυνατότητα επιλογής παραλλαγής Sudoku στον χρήστη μεταξύ Originall Sudoku,
-     *  Killer Sudoku και DuiDoku. Δέν υπάρχει δυνατότητα δύο η παραπάνω επιλογών.
+     *  Killer Sudoku και DuiDoku. Δέν υπάρχει δυνατότητα δύο η παραπάνω επιλογών γιατί χρησιμοποιήθηκε η κλάση
+     *  ButtonGroup.
      *
      *  Για το 2ο μέρος:
+     *  Το secondPanel έχει τις επιλογές μεταξύ των γραμμάτων και αριθμών. Ξανά με χρήση της ButtonGroup δεν μπορεί να
+     *  επιλέξει πάνω από μία επιλογή.
      *
+     *  Για το 3ο μέρος:
+     *  Μέσα στην thirdPanel βρίσκεται ένα CheckBox το οποίο αντιπρωσοπεύει την βοήθεια.
+     *
+     *  Για το 4ο μέρος:
+     *  Το startButton βρίσκεται στο κάτω μέρος του JFrame και όταν πατηθεί αρχίζεις να παίζεις.
      *
      */
     void MenuStart() {

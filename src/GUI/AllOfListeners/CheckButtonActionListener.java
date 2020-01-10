@@ -124,6 +124,7 @@ public class CheckButtonActionListener implements ActionListener {
 
         if (aSudokuFrame.getaLogic().hasWon()) {
             aSudokuFrame.setVisible(false);
+//            aSudokuFrame.getaSecondMenu().getTheEntry().classicPuzzleSolved(aSudokuFrame.getaKillerSudoku().get);
             new WinningFrame(aSudokuFrame);
         }
     }
@@ -254,5 +255,65 @@ public class CheckButtonActionListener implements ActionListener {
 
     private void forKillerSudoku() {
 
+        for (int row=0; row<aSudokuFrame.getNumOfRows(); row++) {
+            for (int col=0; col<aSudokuFrame.getNumOfColumns(); col++) {
+                aSudokuFrame.getTheField()[row][col].setBackground(aSudokuFrame.getIntegerToColorMap().get(aSudokuFrame.getaKillerSudoku().getSums()[row][col]));
+            }
+        }
+
+        boolean found;
+
+        for (int row=0; row < aSudokuFrame.getNumOfRows(); row++) {
+            for (int col=0; col < aSudokuFrame.getNumOfColumns(); col++) {
+
+                found = false;
+
+
+
+                if (aSudokuFrame.getTheField()[row][col].getText().equals("")) {
+                    aSudokuFrame.getaLogic().getSudoku()[row][col] = '0';
+                    continue;
+                } else if (aSudokuFrame.getLetters() != null) {
+                    for (int k = 0; k < aSudokuFrame.getLetters().length; k++) {
+                        if (aSudokuFrame.getTheField()[row][col].getText().equals(Character.toString(aSudokuFrame.getLetters()[k]))) {
+                            found = true;
+                            break;
+                        }
+                    }
+                } else {
+                    for (int k = 0; k < aSudokuFrame.getNumbers().length; k++) {
+                        if (aSudokuFrame.getTheField()[row][col].getText().equals(String.valueOf(aSudokuFrame.getNumbers()[k]))) {
+                            found = true;
+                            break;
+                        }
+                    }
+                }
+
+                if (!found) {
+                    aSudokuFrame.getaLogic().getSudoku()[row][col] = '0';
+                    aSudokuFrame.getTheField()[row][col].setBackground(Color.white);
+                    continue;
+                }
+
+                if (!aSudokuFrame.getaLogic().isElementInRow(row, aSudokuFrame.getTheField()[row][col].getText().charAt(0)) &&
+                        !aSudokuFrame.getaLogic().isElementInColumn(col, aSudokuFrame.getTheField()[row][col].getText().charAt(0)) &&
+                        !aSudokuFrame.getaLogic().isElementInBox(row, col, aSudokuFrame.getTheField()[row][col].getText().charAt(0))) {
+
+                    aSudokuFrame.getaLogic().insertElement(row, col, aSudokuFrame.getTheField()[row][col].getText().charAt(0));
+//                    aSudokuFrame.getTheField()[row][col].setBackground(Color.white);
+                } else if (aSudokuFrame.getTheField()[row][col].getText().equals(String.valueOf(aSudokuFrame.getaLogic().getSudoku()[row][col]))) {
+//                    aSudokuFrame.getTheField()[row][col].setBackground(Color.white);
+                } else {
+                    aSudokuFrame.getTheField()[row][col].setBackground(Color.white);
+                }
+
+
+            }
+        }
+
+        if (aSudokuFrame.getaLogic().hasWon()) {
+            aSudokuFrame.setVisible(false);
+            new WinningFrame(aSudokuFrame);
+        }
     }
 }
