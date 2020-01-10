@@ -10,6 +10,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+/**
+ * Μέσα στην κλάση MainMenuStartButtonActionListener καθορίζεται τί θα κάνει το κουμπί από την κλάση MainMenu.
+ *
+ * Μόλις πατηθεί, κρύβει το πρώτο παράθυρο και παίρνει το ψευδώνυμο που έδωσε ο χρήστης για να ελέγξει εάν παίζει για
+ * πρώτη φορά ή έχει ξαναπαίξει και μετά καλεί τον κατασκευαστή του δεύτερου παραθύρου.
+ *
+ * @author Γιώργος Τσιφούτης
+ */
 public class MainMenuStartButtonActionListener implements ActionListener {
 
     private MainMenu aMainMenu;

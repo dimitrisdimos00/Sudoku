@@ -7,6 +7,14 @@ import javax.swing.border.TitledBorder;
 import javax.swing.event.DocumentListener;
 import java.awt.*;
 
+/**
+ *  Η MainMenu αντιπροσωπεύει το αρχικό παράθυρο που θα εμφανίζεται στον χρήστη. Η MainMenu είναι επέκταση της JFrame
+ *  για να είναι πιο εύκολη η υλοποίηση του παραθύρου. Μέσα σε αυτή την κλάση υλοποιείται η δυνατότητα στον χρήστη να
+ *  δώσει ένα ψευδώνυμο το οποίο θα χρησιμοποιηθεί από τις υπόλοιπες κλάσεις και η επιλογή της γλώσσας μεταξύ Ελληνικά
+ *  και Αγγλικά. Ακόμη προστίθεται ένα κουμπί το οποίο όταν πατηθεί θα εμφανίζει το δεύτερο παράθυρο.
+ *
+ * @author Γιώργος Τσιφούτης
+ */
 public class MainMenu extends JFrame {
 
     private JPanel firstPanel;
@@ -35,16 +43,22 @@ public class MainMenu extends JFrame {
         return startButton;
     }
 
-    public void setStartButton(JButton startButton) {
-        this.startButton = startButton;
-    }
-
     //--------------------------------------------------------------------------------------------------
 
     public MainMenu() {
         MenuStart();
     }
 
+
+    /**
+     *  Η μέθοδος MenuStart() ευθύνεται για το τί θα εμφανιστεί στο παράθυρο. Το παράθυρο χρησιμοποιεί 2 JPanels για
+     *  καλύτερη οργανοποίηση του παραθύρου. Στο 1ο JPanel χρησιμοποείται ένα JLabel και ένα JTextField στο οποίο
+     *  JTextField ο χρήστης θα εισάγει το ψευδώνυμο που θα επιλέξει. Στο 2ο JPanel ο χρήστης επιλέγει την γλώσσα
+     *  που θέλει χρησιμοποιόντας 2 RadioButtons, ένα για τα ελληνικά και 1 για τα αγγλικά τα οποία εισάγονται σε
+     *  ένα group (αντικείμενο κλάσης ButtonGroup()) και στο τέλος του παραθύρου προστίθεται το κουμπί.
+     *
+     * @author Γιώργος Τσιφούτης
+     */
     private void MenuStart() {
         setTitle("Sudoku");
         setResizable(false);
