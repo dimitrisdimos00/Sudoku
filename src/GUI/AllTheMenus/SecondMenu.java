@@ -83,6 +83,22 @@ public class SecondMenu extends JFrame{
         strings = new String[11];
     }
 
+    /**
+     * Η μέθοδος Menustart() ευθύνεται για το τί θα εμφανιστεί στο παράθυρο. Το MainMenu έχει χωριστεί σε 4 μέρη.
+     *
+     * firstPanel = 1ο μέρος
+     * secondPanel = 2o μέρος
+     * thirdPanel = 3ο μέρος
+     * StartButton = 4 μέρος
+     *
+     *  Για το 1ο μερος:
+     *  Μέσα στο firstPanel θα δίνεται η δυνατότητα επιλογής παραλλαγής Sudoku στον χρήστη μεταξύ Originall Sudoku,
+     *  Killer Sudoku και DuiDoku. Δέν υπάρχει δυνατότητα δύο η παραπάνω επιλογών.
+     *
+     *  Για το 2ο μέρος:
+     *
+     *
+     */
     void MenuStart() {
         setTitle(strings[0]);
         setResizable(false);
