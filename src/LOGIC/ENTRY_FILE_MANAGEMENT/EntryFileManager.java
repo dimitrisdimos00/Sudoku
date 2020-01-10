@@ -36,11 +36,25 @@ public class EntryFileManager {
                     eof = true;
                 }
             }
-        }
-        catch (IOException e) {
+        } catch (EOFException e) {
+            return entries;
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return entries;
+    }
+
+    public Entry getEntry(String name){
+        ArrayList<Entry> allEntries = getAllEntries();
+        Entry entry;
+        for (Entry allEntry : allEntries) {
+            if (name.equals(allEntry.getName())) {
+                entry = allEntry;
+                return entry;
+            }
+        }
+        entry = new Entry(name);
+        return entry;
     }
 
     public void updateEntries(ArrayList<Entry> newEntries) {
@@ -52,6 +66,7 @@ public class EntryFileManager {
             e.printStackTrace();
         }
     }
+
     public void updateEntry(Entry entry) {
         ArrayList<Entry> allEntries = getAllEntries();
 
@@ -64,18 +79,5 @@ public class EntryFileManager {
             }
         }
         addEntry(entry);
-    }
-
-    public Entry getEntry(String name){
-        ArrayList<Entry> allEntries = getAllEntries();
-        Entry entry;
-        for (Entry allEntry:allEntries) {
-            if (name.equals(allEntry.getName())){
-                entry = allEntry;
-                return entry;
-            }
-        }
-        entry = new Entry(name);
-        return entry;
     }
 }

@@ -5,48 +5,42 @@ import LOGIC.PUZZLE_LOGIC.Logic;
 
 import java.awt.*;
 import java.util.Random;
-
+/**
+ * The Duidoku class extends the Logic class. It contains one method called computerPlays.
+ *
+ * @author Δημήτρης Δήμος
+ */
 public class Duidoku extends Logic {
-    private SudokuFrame sudokuFrame;
-
-    //-------------------------------------
-
-    public SudokuFrame getSudokuFrame() {
-        return sudokuFrame;
-    }
-
-    public void setSudokuFrame(SudokuFrame sudokuFrame) {
-        this.sudokuFrame = sudokuFrame;
-    }
-
-    //--------------------------------------
-
-    public Duidoku(boolean isNumerical, SudokuFrame sudokuFrame){
+    /**
+     * Super with sudoku_selection = 3, and the option for the puzzle being numerical or not is called
+     * @param isNumerical true for numerical, false for wordoku
+     */
+    public Duidoku(boolean isNumerical){
         super(3, isNumerical);
         setSudoku(getArrayConverter().matrixToZeros());
-        this.sudokuFrame = sudokuFrame;
     }
 
-    public void computerPlays(){
+    public void computerPlays(SudokuFrame sudokuFrame){
         Random random = new Random();
-        int randomRow = random.nextInt(getN());
-        int randomColumn = random.nextInt(getN());
+        int n = getN();
+        int randomRow = random.nextInt(n);
+        int randomColumn = random.nextInt(n);
         char randomElement;
         if (isNumerical()) {
-            randomElement = (char)(random.nextInt(getN()) + 1 + '0');
+            randomElement = (char)(random.nextInt(n) + 1 + '0');
         }
         else {
-            randomElement = getArrayConverter().intToChar(random.nextInt(getN()) + 1);
+            randomElement = getArrayConverter().intToChar(random.nextInt(n) + 1);
         }
 
-        while (getSudokuFrame().getTheField()[randomRow][randomColumn].getBackground().equals(Color.black) ||getSudoku()[randomRow][randomColumn] != '0' || !insertElement(randomRow, randomColumn, randomElement)){
-            randomRow = random.nextInt(getN());
-            randomColumn = random.nextInt(getN());
+        while (sudokuFrame.getTheField()[randomRow][randomColumn].getBackground().equals(Color.black) ||getSudoku()[randomRow][randomColumn] != '0' || !insertElement(randomRow, randomColumn, randomElement)){
+            randomRow = random.nextInt(n);
+            randomColumn = random.nextInt(n);
             if (isNumerical()) {
-                randomElement = (char) (random.nextInt(getN() + 1) + '0');
+                randomElement = (char) (random.nextInt(n + 1) + '0');
             }
             else {
-                randomElement = getArrayConverter().intToChar(random.nextInt(getN() + 1));
+                randomElement = getArrayConverter().intToChar(random.nextInt(n + 1));
             }
         }
     }

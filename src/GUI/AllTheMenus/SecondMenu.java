@@ -92,7 +92,7 @@ public class SecondMenu extends JFrame{
     }
 
     //--------------------------------------------------------------------------------------------------
-    SecondMenu(Entry anEntry) {
+    public SecondMenu(Entry anEntry) {
         this.theEntry = anEntry;
         fromGreekMenu = this instanceof GreekMenu;
         strings = new String[11];

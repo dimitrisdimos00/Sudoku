@@ -8,7 +8,6 @@ import LOGIC.ENTRY_FILE_MANAGEMENT.EntryFileManager;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 /**
  * Μέσα στην κλάση MainMenuStartButtonActionListener καθορίζεται τί θα κάνει το κουμπί από την κλάση MainMenu.
@@ -24,8 +23,6 @@ public class MainMenuStartButtonActionListener implements ActionListener {
     private String theUserName;
     private Entry theEntry;
 
-    private ArrayList<Entry> allEntries;
-
     public MainMenuStartButtonActionListener(MainMenu aMainMenu) {
         this.aMainMenu = aMainMenu;
     }
@@ -38,21 +35,7 @@ public class MainMenuStartButtonActionListener implements ActionListener {
         theUserName = aMainMenu.getUserNameTextField().getText();
 
         EntryFileManager anEntryFileManager = new EntryFileManager();
-        allEntries = anEntryFileManager.getAllEntries();
-
-        boolean found = false;
-        for (int i = 0; i < allEntries.size(); i++) {
-            if (theUserName.equals(allEntries.get(i).getName())) {
-                theEntry = allEntries.get(i);
-                found = true;
-                break;
-            }
-        }
-
-        if (!found) {
-            theEntry = new Entry(theUserName);
-            anEntryFileManager.addEntry(theEntry);
-        }
+        theEntry = anEntryFileManager.getEntry(theUserName);
 
         if (aMainMenu.getGreekRadioButton().isSelected()) {
             new GreekMenu(theEntry);

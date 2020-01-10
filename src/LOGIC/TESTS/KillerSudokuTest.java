@@ -33,6 +33,6 @@ class KillerSudokuTest {
         uniqueNumbers.add(7);
         uniqueNumbers.add(10);
         uniqueNumbers.add(26);
-        assertEquals(killerSudoku.getUniqueNumbers(), uniqueNumbers);
+        assertEquals(uniqueNumbers, killerSudoku.getUniqueNumbers());
     }
 }

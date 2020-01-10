@@ -152,7 +152,6 @@ public class SudokuFrame extends JFrame{
     }
 
     //--------------------------------------------------------------------------------------------------
-
     public SudokuFrame(SecondMenu aSecondMenu, int numOfRows, int numOfColumns) {
 
         if (!aSecondMenu.getEpilogiDuiDoku().isSelected() && aSecondMenu.getEpilogiArithmon().isSelected())
@@ -183,9 +182,9 @@ public class SudokuFrame extends JFrame{
         else if (aSecondMenu.getEpilogiDuiDoku().isSelected()) {
             this.nameOfGame = "Duidoku";
             if (aSecondMenu.getEpilogiArithmon().isSelected())
-                aDuidoku = new Duidoku(true, this);
+                aDuidoku = new Duidoku(true);
             else
-                aDuidoku = new Duidoku(false, this);
+                aDuidoku = new Duidoku(false);
             aLogic = aDuidoku;
         }
 
