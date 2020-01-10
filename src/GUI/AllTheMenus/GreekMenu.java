@@ -2,6 +2,11 @@ package GUI.AllTheMenus;
 
 import LOGIC.ENTRY_FILE_MANAGEMENT.Entry;
 
+/**
+ * Η κλάση GreekMenu είναι επέκταση της SecondMenu και ευθύνεται στο να είναι το 2ο παράθυρο στα ελληνικά.
+ *
+ * @author Γιώργος Τσιφούτης
+ */
 public class GreekMenu extends SecondMenu {
 
     public GreekMenu(Entry anEntry) {

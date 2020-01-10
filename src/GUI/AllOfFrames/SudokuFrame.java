@@ -16,6 +16,13 @@ import java.awt.*;
 import java.util.HashMap;
 import java.util.Random;
 
+/**
+ * Η κλάση αυτή είναι η κύρια κλάση αυτού του προγράμματος. Αποτελεί το JFrame στο οποίο θα εμφανίζεται η βοήθεια, οι
+ * πληροφορίες για το Killer Sudoku καθώς και το grid απο JTextField τα οποία θα είναι στο κέντρο του παραθύρου και
+ * θα είναι σε διαστάσεις 9x9 ή 4x4 αναλόγως το Sudoku που επέλεξε ο χρήστης να παίξει.
+ *
+ * @author Γιώργος Τσιφούτης
+ */
 public class SudokuFrame extends JFrame{
 
     private HashMap<Integer, Color> IntegerToColorMap;
@@ -205,7 +212,7 @@ public class SudokuFrame extends JFrame{
                 theField[i][j].setHorizontalAlignment(JTextField.CENTER);
                 theField[i][j].setFont(new Font("Verdana", Font.BOLD,20));
                 theField[i][j].setDocument(new JTextFieldLimit(1));
-                if (this.aSecondMenu.gethBohtheia().isSelected()) {
+                if (this.aSecondMenu.gethBohtheia().isSelected() || this.aSecondMenu.getEpilogiKillerSudoku().isSelected()) {
                     aTextFieldFocusListener = new TextFieldFocusListener(this, i, j, aLogic);
                     theField[i][j].addFocusListener(aTextFieldFocusListener);
                 }
@@ -229,7 +236,7 @@ public class SudokuFrame extends JFrame{
 
     private void makeFrame() {
         setTitle(nameOfGame);
-        setResizable(true);
+        setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 //-------------------------------------------------------------------------------------------------------------------------------
@@ -306,6 +313,10 @@ public class SudokuFrame extends JFrame{
         setVisible(true);
     }
 
+    /**
+     * Προσθέτει τους DuiDokuMouseActionListener σε κάθε JTextField
+     *
+     */
     private void forDuidoku() {
 
         for (int row=0; row<this.getNumOfRows(); row++) {

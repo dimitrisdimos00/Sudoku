@@ -2,6 +2,11 @@ package GUI.AllTheMenus;
 
 import LOGIC.ENTRY_FILE_MANAGEMENT.Entry;
 
+/**
+ * Η κλάση EnglishMenu είναι επέκταση της SecondMenu και ευθύνεται στο να είναι το 2ο παράθυρο στα αγγλικά.
+ *
+ * @author Γιώργος Τσιφούτης
+ */
 public class EnglishMenu extends SecondMenu {
 
     public EnglishMenu(Entry anEntry) {

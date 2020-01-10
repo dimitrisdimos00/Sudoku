@@ -11,6 +11,11 @@ import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Η κλάση αυτή ορίζει το τί θα κάνει το κουμπί από το SudokuFrame.
+ *
+ * @author Γιώργος Τσιφούτης
+ */
 public class CheckButtonActionListener implements ActionListener {
 
     private SudokuFrame aSudokuFrame;
@@ -66,8 +71,16 @@ public class CheckButtonActionListener implements ActionListener {
                 }
             }
         }
+        if (aSudokuFrame.getaSecondMenu().getEpilogiKillerSudoku().isSelected()) {
+            forKillerSudoku();
+        }
     }
 
+    /**
+     * Η συνάρτηση ελέχγει εάν αυτό που έπαιξε ο χρηστης στο κανονικό Sudoku είναι αποδεκτό, ελέχγει εάν κέρδισε και
+     * εάν δεν κέρδισε συνεχίζει.
+     *
+     */
     private void forOriginalSudoku() {
 
 
@@ -133,6 +146,9 @@ public class CheckButtonActionListener implements ActionListener {
         }
     }
 
+    /**
+     * Αρχικά παίζει ο υπολογιστής και θέτει σε εκείνο το JTextField που έπαιξε το Background κόκκινο.
+     */
     private void forDuidoku() {
 
         aSudokuFrame.getaDuidoku().computerPlays(aSudokuFrame);
@@ -151,6 +167,10 @@ public class CheckButtonActionListener implements ActionListener {
         }
     }
 
+    /**
+     *
+     * @return Επιστρέφει εάν το Duidoku είναι γεμάτο με δεκτά στοιχεία
+     */
     private boolean DuiDokuIsFull() {
         boolean full = true;
 
@@ -168,6 +188,10 @@ public class CheckButtonActionListener implements ActionListener {
 
         return full;
     }
+
+    /**
+     * Ελέχγει σε όλο το grid εάν υπάρχει JTextField στο οποίο δεν μπορεί να εισαχθεί άλλο στοιχείο και το μαυρίζει.
+     */
     private void newBlackTextFields() {
 
         for (int row=0; row<aSudokuFrame.getNumOfRows(); row++) {
@@ -255,6 +279,68 @@ public class CheckButtonActionListener implements ActionListener {
                     aSudokuFrame.getTheField()[row][col].setBackground(Color.black);
                 }
             }
+        }
+    }
+
+    /**
+     * Ανανεώνει τα χρώματα του Killer Sudoku και όπου δεν έθεσε σώστο στοιχείο, κάνει το Background άσπρο. Τέλος ελέγχει
+     * εάν κέρδισε ο χρήστης ή όχι.
+     *
+     */
+    private void forKillerSudoku() {
+
+        for (int row=0; row<aSudokuFrame.getNumOfRows(); row++) {
+            for (int col=0; col<aSudokuFrame.getNumOfColumns(); col++) {
+                aSudokuFrame.getTheField()[row][col].setBackground(aSudokuFrame.getIntegerToColorMap().get(aSudokuFrame.getaKillerSudoku().getSums()[row][col]));
+            }
+        }
+
+        boolean found;
+
+        for (int row=0; row < aSudokuFrame.getNumOfRows(); row++) {
+            for (int col=0; col < aSudokuFrame.getNumOfColumns(); col++) {
+
+                found = false;
+
+                if (aSudokuFrame.getTheField()[row][col].getText().equals("")) {
+                    aSudokuFrame.getaLogic().getSudoku()[row][col] = '0';
+                    continue;
+                } else if (aSudokuFrame.getLetters() != null) {
+                    for (int k = 0; k < aSudokuFrame.getLetters().length; k++) {
+                        if (aSudokuFrame.getTheField()[row][col].getText().equals(Character.toString(aSudokuFrame.getLetters()[k]))) {
+                            found = true;
+                            break;
+                        }
+                    }
+                } else {
+                    for (int k = 0; k < aSudokuFrame.getNumbers().length; k++) {
+                        if (aSudokuFrame.getTheField()[row][col].getText().equals(String.valueOf(aSudokuFrame.getNumbers()[k]))) {
+                            found = true;
+                            break;
+                        }
+                    }
+                }
+                if (!found) {
+                    aSudokuFrame.getaLogic().getSudoku()[row][col] = '0';
+                    aSudokuFrame.getTheField()[row][col].setBackground(Color.white);
+                    continue;
+                }
+                if (!aSudokuFrame.getaLogic().isElementInRow(row, aSudokuFrame.getTheField()[row][col].getText().charAt(0)) &&
+                        !aSudokuFrame.getaLogic().isElementInColumn(col, aSudokuFrame.getTheField()[row][col].getText().charAt(0)) &&
+                        !aSudokuFrame.getaLogic().isElementInBox(row, col, aSudokuFrame.getTheField()[row][col].getText().charAt(0))) {
+
+                     aSudokuFrame.getaLogic().insertElement(row, col, aSudokuFrame.getTheField()[row][col].getText().charAt(0));
+                } else if (aSudokuFrame.getTheField()[row][col].getText().equals(String.valueOf(aSudokuFrame.getaLogic().getSudoku()[row][col]))) {
+                    //aSudokuFrame.getTheField()[row][col].setBackground(Color.white);
+                } else {
+                    aSudokuFrame.getTheField()[row][col].setBackground(Color.white);
+                }
+            }
+        }
+
+        if (aSudokuFrame.getaLogic().hasWon()) {
+            aSudokuFrame.setVisible(false);
+            new WinningFrame(aSudokuFrame);
         }
     }
 }

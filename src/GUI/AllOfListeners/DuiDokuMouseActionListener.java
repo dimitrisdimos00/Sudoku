@@ -8,18 +8,36 @@ import java.awt.event.MouseListener;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Η DuiDokuMouseActionListener είναι επέκταση του interface MouseListener και ορίζει τί θα γίνεται όταν το ποντίκι
+ * του χρήστη πατήσει, μπεί ή βγεί από ένα JTextField.
+ *
+ * @author Γιώργος Τσιφούτης
+ */
 public class DuiDokuMouseActionListener implements MouseListener {
 
     private int row;
     private int col;
     private SudokuFrame aSudokuFrame;
 
+    /**
+     * Απλά αναθέτω την γραμμη, στήλη και SudokuFrame στα αντίστοιχα ιδιοτικά πεδία.
+     * @param aSudokuFrame Χρησιμοποιήται για να έχουμε πρόσβαση στο field από JTextField καθώς και εάν ο χρήστης
+     *                     επέλεξε την βοήθεια ή όχι.
+     * @param row Η σειρά του JTextField
+     * @param col Η στήλη του JTextField
+     */
     public DuiDokuMouseActionListener(SudokuFrame aSudokuFrame, int row, int col) {
         this.aSudokuFrame = aSudokuFrame;
         this.row = row;
         this.col = col;
     }
 
+    /**
+     * Ελέχγει εάν είναι κενό το JTextField, δεν υπάρχει άλλο ανοικτό JTextField καί δεν έχει μαύρο Background.
+     * Μαύρο Background θα έχει όταν δεν μπορεί να εισαχθεί άλλος χαρακτήρας στο κουτάκι.
+     * @param mouseEvent
+     */
     @Override
     public void mouseClicked(MouseEvent mouseEvent) {
         if (IsEmpty() && EverythingIsClosed() && aSudokuFrame.getTheField()[row][col].getBackground()!=Color.black)
@@ -36,12 +54,21 @@ public class DuiDokuMouseActionListener implements MouseListener {
 
     }
 
+    /**
+     * Ανανεώνει το JTextField της βοήθειας με το νέο String.
+     * @param mouseEvent
+     */
     @Override
     public void mouseEntered(MouseEvent mouseEvent) {
         if (aSudokuFrame.getaSecondMenu().gethBohtheia().isSelected())
             aSudokuFrame.getSecondPanelTextField().setText(String.valueOf(renameString()));
     }
 
+    /**
+     * Όταν βγεί το ποντίκι από ένα JTextField τότε το κλείνει αλλά αν έχει γράψει ο χρήστης τότε το ξαναενεργοποιεί.
+     * Τέλος εάν είναι χρωματισμένο το απενεργοποιεί άλλη μία φορά.
+     * @param mouseEvent
+     */
     @Override
     public void mouseExited(MouseEvent mouseEvent) {
         aSudokuFrame.getTheField()[row][col].setEditable(false);
@@ -53,9 +80,17 @@ public class DuiDokuMouseActionListener implements MouseListener {
             aSudokuFrame.getTheField()[row][col].setEditable(false);
     }
 
+    /**
+     * @return Επιστρέφει true εάν το κουτάκι που πάτησε ο χρήστης είναι κενό.
+     */
     private boolean IsEmpty() {
         return aSudokuFrame.getTheField()[row][col].getText().equals("");
     }
+
+    /**
+     *
+     * @return Επιστρέφει true εάν όλα τα JTextField είναι κλειστά.
+     */
     private boolean EverythingIsClosed() {
         for (int row=0; row<aSudokuFrame.getNumOfRows(); row++) {
             for (int col=0; col<aSudokuFrame.getNumOfColumns(); col++) {
@@ -65,6 +100,12 @@ public class DuiDokuMouseActionListener implements MouseListener {
         }
         return true;
     }
+
+    /**
+     *
+     * @return Δημιουργεί και επιστρέφει το String με τους αριθμούς ή γράμματα που μπορούν να εισαχθούν στο επιλεγμένο
+     * κουτάκι.
+     */
     private String renameString() {
 
         StringBuilder theString;

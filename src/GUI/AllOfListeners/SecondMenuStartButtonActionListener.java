@@ -6,6 +6,12 @@ import GUI.AllOfFrames.SudokuFrame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * Η SecondMenuStartButtonActionListener ειναι η ActionListener για το κουμπί του 2ου παραθύρου και είναι αυτό που
+ * καλεί την SudokuFrame για να αρχίσει το παιχνίδι.
+ *
+ * @author Γιώργος Τσιφούτης
+ */
 public class SecondMenuStartButtonActionListener implements ActionListener {
 
     private SecondMenu aSecondMenu;

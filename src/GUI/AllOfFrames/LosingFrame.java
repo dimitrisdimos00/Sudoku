@@ -6,6 +6,13 @@ import LOGIC.ENTRY_FILE_MANAGEMENT.Entry;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Η LosingFrame αποτελεί το παράθυρο που θα εμφανίζεται όταν ο χρήστης χάσει στο DuiDoku. Μέσα σε αυτό εμφανίζεται
+ * το ψευδώνυμο που έδωσε καθώς και τα στατιστικά που είναι συνδεδεμένα με αυτό το ψευδώνυμο. Χρησιμοποιείται, τέλος,
+ * ένα επιπλέον κουμπί για να κλείσει την εφαρμογή.
+ *
+ * @author Γιώργος Τσιφούτης
+ */
 public class LosingFrame extends JFrame {
 
     private String Title;
