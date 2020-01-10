@@ -2,14 +2,13 @@ package GUI.AllOfFrames;
 
 import GUI.AllOfListeners.CheckButtonActionListener;
 import GUI.AllOfListeners.DuiDokuMouseActionListener;
-import GUI.AllTheMenus.MainMenu;
 import GUI.JTextFieldLimit;
 import GUI.AllTheMenus.SecondMenu;
 import GUI.AllOfListeners.TextFieldFocusListener;
-import LOGIC.Duidoku;
-import LOGIC.KillerSudoku;
-import LOGIC.Logic;
-import LOGIC.Sudoku;
+import LOGIC.PUZZLE_LOGIC.Duidoku;
+import LOGIC.PUZZLE_LOGIC.KillerSudoku;
+import LOGIC.PUZZLE_LOGIC.Logic;
+import LOGIC.PUZZLE_LOGIC.Sudoku;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;

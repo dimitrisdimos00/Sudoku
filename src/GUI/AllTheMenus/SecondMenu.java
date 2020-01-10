@@ -1,7 +1,7 @@
 package GUI.AllTheMenus;
 
 import GUI.AllOfListeners.*;
-import LOGIC.FILE_MANAGEMENT.Entry;
+import LOGIC.ENTRY_FILE_MANAGEMENT.Entry;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;

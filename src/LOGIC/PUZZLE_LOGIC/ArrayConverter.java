@@ -1,4 +1,4 @@
-package LOGIC;
+package LOGIC.PUZZLE_LOGIC;
 
 public class ArrayConverter {
     private int n;

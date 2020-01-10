@@ -1,11 +1,4 @@
-package LOGIC;
-
-import GUI.AllOfFrames.SudokuFrame;
-
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.Random;
-import java.util.Scanner;
+package LOGIC.PUZZLE_LOGIC;
 
 public class Logic {
     private int n;
@@ -114,24 +107,5 @@ public class Logic {
             }
         }
         return false;
-    }
-
-    public ArrayList<Character> availableElementsForGivenCoordinates(int row, int col){
-        ArrayList<Character> availableElements = new ArrayList<>();
-        ArrayConverter arrayConverter = new ArrayConverter(n);
-
-        for (int i = 1; i <= n; i++) {
-            if (isNumerical) {
-                if (insertElement(row, col, (char)(i + '0'))){
-                    availableElements.add((char)(i + '0'));
-                }
-            }
-            else {
-                if (insertElement(row, col, arrayConverter.intToChar(i))){
-                    availableElements.add(arrayConverter.intToChar(i));
-                }
-            }
-        }
-        return availableElements;
     }
 }

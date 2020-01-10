@@ -1,4 +1,4 @@
-package LOGIC.FILE_MANAGEMENT;
+package LOGIC.ENTRY_FILE_MANAGEMENT;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -53,7 +53,7 @@ public class EntryFileManager {
         }
     }
 
-    public void emptyEntries() {
+    public void emptyFile() {
         ArrayList<Entry> noEntries = new ArrayList<>();
         updateEntries(noEntries);
     }

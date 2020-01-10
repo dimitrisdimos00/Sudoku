@@ -1,6 +1,6 @@
 package GUI.AllTheMenus;
 
-import LOGIC.FILE_MANAGEMENT.Entry;
+import LOGIC.ENTRY_FILE_MANAGEMENT.Entry;
 
 public class EnglishMenu extends SecondMenu {
 

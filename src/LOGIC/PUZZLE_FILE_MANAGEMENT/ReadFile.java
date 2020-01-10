@@ -17,7 +17,7 @@ public class ReadFile {
         this.puzzlesFile = puzzlesFile;
     }
 
-    public void setRandomPuzzle(int randomPuzzleIndex) { this.randomPuzzleIndex = randomPuzzleIndex; }
+    public void setRandomPuzzleIndex(int randomPuzzleIndex) { this.randomPuzzleIndex = randomPuzzleIndex; }
 
     public File getPuzzlesFile() {
         return puzzlesFile;
@@ -59,6 +59,10 @@ public class ReadFile {
 
     public int[] getRandomPuzzle(ArrayList<Integer> wantedPuzzles) throws FileNotFoundException {
         Random random = new Random();
+        if (wantedPuzzles.size() == 0){
+            randomPuzzleIndex = -1;
+            return null;
+        }
         randomPuzzleIndex = random.nextInt(wantedPuzzles.size());
         return readPuzzlesFromFile().get(wantedPuzzles.get(randomPuzzleIndex));
     }

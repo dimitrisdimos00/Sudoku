@@ -1,4 +1,4 @@
-package LOGIC.FILE_MANAGEMENT;
+package LOGIC.ENTRY_FILE_MANAGEMENT;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -68,6 +68,29 @@ public class Entry implements Serializable {
 
     public void killerPuzzleSolved(int solvedPuzzle) {
         unsolvedKillerPuzzles.remove(solvedPuzzle);
+    }
+
+    public void increaseWins() {
+        wins ++;
+    }
+
+    public void increaseLoses() {
+        losses ++;
+    }
+
+    public void updateEntry() {
+        EntryFileManager entryFileManager = new EntryFileManager();
+        ArrayList<Entry> allEntries = entryFileManager.getAllEntries();
+
+        for (int i = 0; i < allEntries.size(); i++) {
+            if (allEntries.get(i).getName().equals(name)){
+                allEntries.remove(i);
+                allEntries.add(i, this);
+                entryFileManager.updateEntries(allEntries);
+                return;
+            }
+        }
+        entryFileManager.addEntry(this);
     }
 
     public String toString() {

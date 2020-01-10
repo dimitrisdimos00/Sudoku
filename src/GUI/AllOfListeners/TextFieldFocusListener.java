@@ -1,7 +1,7 @@
 package GUI.AllOfListeners;
 
 import GUI.AllOfFrames.SudokuFrame;
-import LOGIC.Logic;
+import LOGIC.PUZZLE_LOGIC.Logic;
 
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;

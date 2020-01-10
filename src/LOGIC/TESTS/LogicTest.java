@@ -1,6 +1,6 @@
 package LOGIC.TESTS;
 
-import LOGIC.Logic;
+import LOGIC.PUZZLE_LOGIC.Logic;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -77,10 +77,5 @@ class LogicTest {
         }
         logic.setSudoku(charMatrix);
         assertTrue(logic.insertElement(0,0,'1'));
-    }
-
-    @org.junit.jupiter.api.Test
-    void availableElementsForGivenCoordinates() {
-
     }
 }

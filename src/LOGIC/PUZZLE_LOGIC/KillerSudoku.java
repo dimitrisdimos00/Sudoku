@@ -1,6 +1,5 @@
-package LOGIC;
+package LOGIC.PUZZLE_LOGIC;
 
-import GUI.AllOfFrames.SudokuFrame;
 import LOGIC.PUZZLE_FILE_MANAGEMENT.ReadFile;
 
 import java.io.FileNotFoundException;
@@ -9,17 +8,26 @@ import java.util.HashSet;
 
 public class KillerSudoku extends Logic {
     private int[][] sums;
+    //----------------------------------------
+    public int[][] getSums() {
+        return sums;
+    }
 
+    public void setSums(int[][] sums) {
+        this.sums = sums;
+    }
+    //-----------------------------------------
     public KillerSudoku(boolean isNumerical, ArrayList<Integer> wantedPuzzles){
         super(2, isNumerical);
         ReadFile readFile = new ReadFile(2);
-        ArrayConverter arrayConverter = new ArrayConverter(getN());
         try {
-            int[][] sums = arrayConverter.arrayToIntMatrix(readFile.getRandomPuzzle(wantedPuzzles));
-        } catch (FileNotFoundException e) {
+            sums = getArrayConverter().arrayToIntMatrix(readFile.getRandomPuzzle(wantedPuzzles));
+
+        }
+        catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        setSudoku(arrayConverter.matrixToZeros());
+        setSudoku(getArrayConverter().matrixToZeros());
     }
 
     public HashSet<Integer> getUniqueNumbers () {

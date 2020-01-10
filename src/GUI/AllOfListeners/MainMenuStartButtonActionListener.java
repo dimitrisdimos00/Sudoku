@@ -3,8 +3,8 @@ package GUI.AllOfListeners;
 import GUI.AllTheMenus.EnglishMenu;
 import GUI.AllTheMenus.GreekMenu;
 import GUI.AllTheMenus.MainMenu;
-import LOGIC.FILE_MANAGEMENT.Entry;
-import LOGIC.FILE_MANAGEMENT.EntryFileManager;
+import LOGIC.ENTRY_FILE_MANAGEMENT.Entry;
+import LOGIC.ENTRY_FILE_MANAGEMENT.EntryFileManager;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

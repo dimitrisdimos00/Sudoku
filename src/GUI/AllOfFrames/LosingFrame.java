@@ -1,7 +1,7 @@
 package GUI.AllOfFrames;
 
 import GUI.AllOfListeners.LosingButtonActionListener;
-import LOGIC.FILE_MANAGEMENT.Entry;
+import LOGIC.ENTRY_FILE_MANAGEMENT.Entry;
 
 import javax.swing.*;
 import java.awt.*;

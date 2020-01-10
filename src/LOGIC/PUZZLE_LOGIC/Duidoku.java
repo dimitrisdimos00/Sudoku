@@ -1,11 +1,12 @@
-package LOGIC;
+package LOGIC.PUZZLE_LOGIC;
 
 import GUI.AllOfFrames.SudokuFrame;
+import LOGIC.PUZZLE_LOGIC.Logic;
 
 import java.awt.*;
 import java.util.Random;
 
-public class Duidoku extends Logic{
+public class Duidoku extends Logic {
     private SudokuFrame sudokuFrame;
 
     //-------------------------------------
