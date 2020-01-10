@@ -330,8 +330,6 @@ public class CheckButtonActionListener implements ActionListener {
                         !aSudokuFrame.getaLogic().isElementInBox(row, col, aSudokuFrame.getTheField()[row][col].getText().charAt(0))) {
 
                      aSudokuFrame.getaLogic().insertElement(row, col, aSudokuFrame.getTheField()[row][col].getText().charAt(0));
-                } else if (aSudokuFrame.getTheField()[row][col].getText().equals(String.valueOf(aSudokuFrame.getaLogic().getSudoku()[row][col]))) {
-                    //aSudokuFrame.getTheField()[row][col].setBackground(Color.white);
                 } else {
                     aSudokuFrame.getTheField()[row][col].setBackground(Color.white);
                 }
@@ -339,6 +337,11 @@ public class CheckButtonActionListener implements ActionListener {
         }
 
         if (aSudokuFrame.getaLogic().hasWon()) {
+            EntryFileManager entryFileManager = new EntryFileManager();
+            int puzzleIndex = aSudokuFrame.getaKillerSudoku().getRandomPuzzleIndex();
+            aSudokuFrame.getaSecondMenu().getTheEntry().killerPuzzleSolved(puzzleIndex);
+            entryFileManager.updateEntry(aSudokuFrame.getaSecondMenu().getTheEntry());
+
             aSudokuFrame.setVisible(false);
             new WinningFrame(aSudokuFrame);
         }
