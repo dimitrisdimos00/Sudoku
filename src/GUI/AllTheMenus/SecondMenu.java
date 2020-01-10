@@ -7,6 +7,12 @@ import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
 
+/**
+ * Αυτή η κλάση αντιπροσωπεύει το δεύτερο παράθυρο που θα ανοίξει στον χρήστη.
+ *
+ * @author Γιώργος Τσιφούτης
+ */
+
 public class SecondMenu extends JFrame{
 
     private Entry theEntry;

@@ -3,6 +3,7 @@ package GUI.AllOfListeners;
 import GUI.AllOfFrames.SudokuFrame;
 import LOGIC.PUZZLE_LOGIC.Logic;
 
+import java.awt.*;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.util.HashMap;
@@ -143,6 +144,16 @@ public class TextFieldFocusListener implements FocusListener {
                 theString.append("--------");
             }
             aSudokuFrame.getSecondPanelTextField().setText(String.valueOf(theString));
+        }
+
+        if (aSudokuFrame.getaSecondMenu().getEpilogiKillerSudoku().isSelected()) {
+
+            for (Map.Entry<Integer, Color> e : aSudokuFrame.getIntegerToColorMap().entrySet()) {
+                if (aSudokuFrame.getTheField()[row][col].getBackground().equals(e.getValue())) {
+                    aSudokuFrame.getTheSumTextField().setText(String.valueOf(e.getKey()));
+                    break;
+                }
+            }
         }
     }
 }

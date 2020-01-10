@@ -45,7 +45,8 @@ public class CheckButtonActionListener implements ActionListener {
             }
 
             if (DuiDokuIsFull()) {
-                aSudokuFrame.getaSecondMenu().getTheEntry().setWins(aSudokuFrame.getaSecondMenu().getTheEntry().getWins()+1);
+                aSudokuFrame.getaSecondMenu().getTheEntry().increaseWins();
+                aSudokuFrame.getaSecondMenu().getTheEntry().updateEntry();
                 aSudokuFrame.setVisible(false);
                 new WinningFrame(aSudokuFrame);
             } else if (typed) {
@@ -55,11 +56,15 @@ public class CheckButtonActionListener implements ActionListener {
                 newBlackTextFields();
 
                 if (DuiDokuIsFull()) {
-                    aSudokuFrame.getaSecondMenu().getTheEntry().setLosses(aSudokuFrame.getaSecondMenu().getTheEntry().getLosses()+1);
+                    aSudokuFrame.getaSecondMenu().getTheEntry().increaseLoses();
+                    aSudokuFrame.getaSecondMenu().getTheEntry().updateEntry();
                     aSudokuFrame.setVisible(false);
                     new LosingFrame(aSudokuFrame);
                 }
             }
+        }
+        if (aSudokuFrame.getaSecondMenu().getEpilogiKillerSudoku().isSelected()) {
+            forKillerSudoku();
         }
     }
 
@@ -140,7 +145,6 @@ public class CheckButtonActionListener implements ActionListener {
             }
         }
     }
-
     private boolean DuiDokuIsFull() {
         boolean full = true;
 
@@ -246,5 +250,9 @@ public class CheckButtonActionListener implements ActionListener {
                 }
             }
         }
+    }
+
+    private void forKillerSudoku() {
+
     }
 }

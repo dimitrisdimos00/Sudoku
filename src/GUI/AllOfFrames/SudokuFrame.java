@@ -13,8 +13,12 @@ import LOGIC.PUZZLE_LOGIC.Sudoku;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
+import java.util.HashMap;
+import java.util.Random;
 
 public class SudokuFrame extends JFrame{
+
+    private HashMap<Integer, Color> IntegerToColorMap;
 
     private int width = 500;
     private int height = 500;
@@ -47,8 +51,23 @@ public class SudokuFrame extends JFrame{
     private JButton CheckButton;
     private String ButtonName;
 
+    private JTextField theSumTextField;
     //-------------------------------------------------------------------------------------------------
 
+
+    public HashMap<Integer, Color> getIntegerToColorMap() {
+        return IntegerToColorMap;
+    }
+    public void setIntegerToColorMap(HashMap<Integer, Color> integerToColorMap) {
+        IntegerToColorMap = integerToColorMap;
+    }
+
+    public JTextField getTheSumTextField() {
+        return theSumTextField;
+    }
+    public void setTheSumTextField(JTextField theSumTextField) {
+        this.theSumTextField = theSumTextField;
+    }
 
     public SecondMenu getaSecondMenu() {
         return aSecondMenu;
@@ -211,7 +230,7 @@ public class SudokuFrame extends JFrame{
 
     private void makeFrame() {
         setTitle(nameOfGame);
-        setResizable(false);
+        setResizable(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 //-------------------------------------------------------------------------------------------------------------------------------
@@ -232,11 +251,42 @@ public class SudokuFrame extends JFrame{
         }
 
         if (aSecondMenu.getEpilogiKillerSudoku().isSelected()) {
+            Random random = new Random();
+            IntegerToColorMap = new HashMap<>();
+
+            for (Integer i : aKillerSudoku.getUniqueNumbers()) {
+                IntegerToColorMap.put(i, new Color(random.nextInt(255), random.nextInt(255), random.nextInt(255)));
+            }
+
+            for (int row=0; row<this.getNumOfRows(); row++) {
+                for (int col=0; col<this.getNumOfColumns(); col++) {
+                    this.getTheField()[row][col].setBackground(IntegerToColorMap.get(aKillerSudoku.getSums()[row][col]));
+                }
+            }
 
             thirdPanel = new JPanel();
             thirdPanel.setBorder(BorderFactory.createTitledBorder(" Killer Sudoku" + thirdPanelLabel.getText()));
+            thirdPanel.setLayout(new GridLayout(0,1));
 
-            add(thirdPanel, BorderLayout.LINE_END);
+            JLabel theText = new JLabel("Το άθροισμα των κουτακίων με το ίδιο χρώμα με αυτό πρέπει να είναι:");
+            theSumTextField = new JTextField();
+            theSumTextField.setEditable(false);
+
+            thirdPanel.add(theText);
+            thirdPanel.add(theSumTextField);
+
+            if (aSecondMenu.gethBohtheia().isSelected()) {
+
+                JPanel BoxPanel = new JPanel();
+                BoxPanel.setLayout(new BoxLayout(BoxPanel, BoxLayout.Y_AXIS));
+
+                BoxPanel.add(secondPanel);
+                BoxPanel.add(thirdPanel);
+
+                add(BoxPanel, BorderLayout.PAGE_START);
+                height += 60;
+            } else
+                add(thirdPanel, BorderLayout.PAGE_START);
         }
 
         if (aSecondMenu.getEpilogiDuiDoku().isSelected()) {

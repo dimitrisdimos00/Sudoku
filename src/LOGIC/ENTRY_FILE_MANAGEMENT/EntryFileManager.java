@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.ArrayList;
 
 public class EntryFileManager {
-    private static File savesFile = new File("src/LOGIC/FILE_MANAGEMENT/saves");
+    private static File savesFile = new File("src/LOGIC/ENTRY_FILE_MANAGEMENT/saves");
     public EntryFileManager(){ }
 
     public void addEntry(Entry anEntry) {
