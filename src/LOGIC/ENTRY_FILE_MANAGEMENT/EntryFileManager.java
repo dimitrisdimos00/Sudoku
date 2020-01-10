@@ -52,9 +52,30 @@ public class EntryFileManager {
             e.printStackTrace();
         }
     }
+    public void updateEntry(Entry entry) {
+        ArrayList<Entry> allEntries = getAllEntries();
 
-    public void emptyFile() {
-        ArrayList<Entry> noEntries = new ArrayList<>();
-        updateEntries(noEntries);
+        for (int i = 0; i < allEntries.size(); i++) {
+            if (allEntries.get(i).getName().equals(entry.getName())){
+                allEntries.remove(i);
+                allEntries.add(i, entry);
+                updateEntries(allEntries);
+                return;
+            }
+        }
+        addEntry(entry);
+    }
+
+    public Entry getEntry(String name){
+        ArrayList<Entry> allEntries = getAllEntries();
+        Entry entry;
+        for (Entry allEntry:allEntries) {
+            if (name.equals(allEntry.getName())){
+                entry = allEntry;
+                return entry;
+            }
+        }
+        entry = new Entry(name);
+        return entry;
     }
 }

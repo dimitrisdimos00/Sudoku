@@ -78,21 +78,6 @@ public class Entry implements Serializable {
         losses ++;
     }
 
-    public void updateEntry() {
-        EntryFileManager entryFileManager = new EntryFileManager();
-        ArrayList<Entry> allEntries = entryFileManager.getAllEntries();
-
-        for (int i = 0; i < allEntries.size(); i++) {
-            if (allEntries.get(i).getName().equals(name)){
-                allEntries.remove(i);
-                allEntries.add(i, this);
-                entryFileManager.updateEntries(allEntries);
-                return;
-            }
-        }
-        entryFileManager.addEntry(this);
-    }
-
     public String toString() {
         return name + "-" + unsolvedClassicPuzzles + "-" + unsolvedKillerPuzzles + "-" + wins + "-" + losses;
     }
